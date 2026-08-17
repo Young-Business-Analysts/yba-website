@@ -1,0 +1,389 @@
+/* ==========================================================================
+   PAGES — layout rules that belong to one page or page type
+   ==========================================================================
+   Anything reused on three or more pages lives in components.css instead.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Homepage hero
+   --------------------------------------------------------------------------
+   Full-bleed gradient band containing the header and the three-line title.
+   -------------------------------------------------------------------------- */
+
+.hero {
+  background: var(--gradient-brand);
+}
+
+.hero__inner {
+  padding-top: 42px;
+  padding-bottom: 132px;
+}
+
+/* Each line of the hero title is its own block, so the rule can be attached
+   to the last one only. That last line is also a .page-header__row, which
+   needs to stay a flex row — hence the second rule. */
+.hero__line {
+  display: block;
+}
+
+.hero__line.page-header__row {
+  display: flex;
+}
+
+.hero__text {
+  margin-top: 19px;
+}
+
+.hero__actions {
+  margin-top: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Inner page header (About, Get involved, Resources, Blog, Join)
+   -------------------------------------------------------------------------- */
+
+.page-header {
+  padding-top: 14px;
+  padding-bottom: 74px;
+}
+
+/* Sub-pages (Certifications, Awards, …) have a "Back" link and no rule.
+   Spacing below comes from the following .section, so there is none here. */
+.page-header--sub {
+  padding-top: 15px;
+  padding-bottom: 0;
+}
+
+.page-header__back {
+  display: inline-block;
+  margin-bottom: 13px;
+  font-size: var(--fs-sm);
+}
+
+.page-header--sub .page-title {
+  font-size: clamp(26px, 2.9vw, var(--fs-h2));
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+}
+
+/* --------------------------------------------------------------------------
+   3. Intro block — lead paragraph + body copy + button
+   -------------------------------------------------------------------------- */
+
+.intro {
+  max-width: 940px;
+}
+
+.intro__lead {
+  margin-bottom: 22px;
+}
+
+.intro__body > p + p {
+  margin-top: 22px;
+}
+
+.intro__actions {
+  margin-top: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   3b. Callout — a heading, a line or two of copy and a button
+   --------------------------------------------------------------------------
+   Used for "Become an ambassador" (Get involved) and "Volunteer" (Join).
+   -------------------------------------------------------------------------- */
+
+.callout__title {
+  margin-bottom: 10px;
+}
+
+.callout > p + p {
+  margin-top: 22px;
+}
+
+.callout__actions {
+  margin-top: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Full-width feature photo
+   -------------------------------------------------------------------------- */
+
+.feature-image {
+  aspect-ratio: 1320 / 548;
+  overflow: hidden;
+  background: var(--c-surface);
+}
+
+.feature-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   5. Section intro — heading plus a single supporting line
+   -------------------------------------------------------------------------- */
+
+.section-intro {
+  margin-bottom: 34px;
+}
+
+.section-intro__title {
+  margin-bottom: 10px;
+}
+
+/* Same reading measure as .intro, so lines break where the design breaks. */
+.section-intro__text {
+  max-width: 940px;
+  margin: 0;
+}
+
+/* A section heading with no supporting line beneath it. */
+.section-heading {
+  margin-bottom: 36px;
+}
+
+/* Resources: the standfirst sits between the page title and the card grid.
+   The narrower measure makes it break after "…certifications and", as designed. */
+.resources-lead {
+  max-width: 760px;
+  margin-bottom: 42px;
+}
+
+/* --------------------------------------------------------------------------
+   6. About — "Meet the team" grid
+   --------------------------------------------------------------------------
+   Four columns of person cards: an 80x80 portrait beside a name and role.
+   -------------------------------------------------------------------------- */
+
+/* The grid sits further below its standfirst than a normal section intro
+   does. This margin collapses with .section-intro's, so it simply wins. */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px 28px;
+  margin-top: 74px;
+}
+
+/* Name and role sit optically centred against the 80px portrait. */
+.team-member {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 17px;
+  align-items: center;
+}
+
+.team-member__photo {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  background: var(--c-surface);
+}
+
+.team-member__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-member__name {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+}
+
+.team-member__role {
+  margin: 0;
+}
+
+.team-outro {
+  margin-top: 76px;
+}
+
+.team-outro__actions {
+  margin-top: 20px;
+}
+
+@media (max-width: 1080px) {
+  .team-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 840px) {
+  .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   7. Blog article
+   --------------------------------------------------------------------------
+   A narrower reading column (934px, as designed) rather than the full grid.
+   -------------------------------------------------------------------------- */
+
+/* The article column is 934px wide, but only the figure uses all of it —
+   the reading copy is set to a narrower 740px measure, as in the design. */
+.article {
+  max-width: 934px;
+  padding-top: 15px;
+}
+
+.article > * {
+  max-width: 740px;
+}
+
+.article__figure {
+  max-width: none;
+}
+
+.article__date {
+  margin-bottom: 20px;
+  font-size: var(--fs-body);
+}
+
+.article__standfirst {
+  margin-bottom: 26px;
+}
+
+.article__author {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.article__author-photo {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  background: var(--c-surface);
+}
+
+.article__author-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article__author-name {
+  margin: 0;
+  font-weight: var(--fw-medium);
+}
+
+.article__author-role {
+  margin: 0;
+}
+
+.article__figure {
+  margin: 0 0 44px;
+}
+
+.article__figure img {
+  width: 100%;
+  height: auto;
+}
+
+.article__figure figcaption {
+  margin-top: 9px;
+  font-size: var(--fs-body);
+}
+
+.article__actions {
+  margin-top: 34px;
+}
+
+/* Topic tags beneath the article. */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0 0;
+}
+
+.tag-list a {
+  font-size: var(--fs-body);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.tag-list a:hover {
+  border-bottom-color: currentColor;
+}
+
+.article-share {
+  margin-top: 44px;
+}
+
+.article-share__title {
+  margin-bottom: 18px;
+}
+
+.read-more {
+  margin-top: 46px;
+}
+
+.read-more__title {
+  margin-bottom: 34px;
+}
+
+/* --------------------------------------------------------------------------
+   7b. 404 page
+   -------------------------------------------------------------------------- */
+
+.notfound-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   8. Privacy / long-form legal copy
+   -------------------------------------------------------------------------- */
+
+.legal {
+  max-width: 940px;
+  padding-top: 26px;
+}
+
+.legal h2 {
+  margin: 22px 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-book);
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.legal h3 {
+  margin: 22px 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.legal p {
+  margin: 0 0 22px;
+}
+
+.legal ul {
+  margin: 0 0 22px;
+  padding-left: 22px;
+  list-style: disc;
+}
+
+.legal li {
+  margin-bottom: 0;
+}
+
+.legal__meta {
+  margin-bottom: 22px;
+}

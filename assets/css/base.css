@@ -1,0 +1,332 @@
+/* ==========================================================================
+   BASE — reset, typography and layout primitives
+   ==========================================================================
+   Loaded after tokens.css. Sets up sensible defaults and the handful of
+   layout helpers (.container, .grid-4, .section) that every page uses.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Reset
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd {
+  margin: 0;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+  list-style: none;
+}
+
+/* Images never overflow their column. */
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Anything that scrolls sideways does so inside its own box, never the page. */
+html {
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   2. Page defaults
+   -------------------------------------------------------------------------- */
+
+body {
+  background: var(--c-white);
+  color: var(--c-black);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-book);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Keyboard users must always be able to see where they are. */
+:focus-visible {
+  outline: 3px solid var(--c-black);
+  outline-offset: 3px;
+}
+
+/* Skip link — visually hidden until focused. */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-sm);
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--c-black);
+  color: var(--c-white);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  transition: top 150ms ease;
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
+}
+
+/* Screen-reader-only text. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography
+   --------------------------------------------------------------------------
+   Every display heading in this brand is uppercase, ultra-bold and widely
+   tracked. `.u-display` carries that treatment; the h1–h4 rules below just
+   pick a size. Sizes are fluid: they shrink smoothly on smaller screens and
+   never go below the min or above the design size.
+   -------------------------------------------------------------------------- */
+
+.u-display,
+.page-title,
+.section-title,
+.card-title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-display);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-display);
+  /* Last-resort guard so a very long word can never break the layout. */
+  overflow-wrap: break-word;
+}
+
+/* Page title / hero — 72px at 1440, down to 34px on a small phone. */
+.page-title {
+  font-size: clamp(34px, 5vw, var(--fs-display));
+}
+
+/* Section heading — 42px at 1440. Also used for the sub-page titles. */
+.section-title {
+  font-size: clamp(26px, 2.9vw, var(--fs-h2));
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+}
+
+/* Card title / small label — 24px at 1440.
+   These sit in narrow columns and are single long words ("CERTIFICATIONS"),
+   so the size is tied to the column width rather than plain vw: at 1440 the
+   calc lands above 24px and clamps, and below that it shrinks just fast
+   enough to keep the longest word inside its card. */
+.card-title {
+  font-size: clamp(16px, calc(2.2vw - 7px), var(--fs-h4));
+  line-height: 1.17;
+  letter-spacing: var(--ls-label);
+}
+
+/* Body copy variants. */
+.lead {
+  font-size: clamp(18px, 1.4vw, var(--fs-lead));
+  line-height: var(--lh-lead);
+}
+
+.text-sm {
+  font-size: var(--fs-sm);
+  line-height: 20px;
+}
+
+/* A stack of paragraphs with the designed 22px rhythm between them. */
+.prose > * + * {
+  margin-top: var(--space-md);
+}
+
+.prose a {
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   4. Links
+   -------------------------------------------------------------------------- */
+
+a {
+  color: var(--c-black);
+}
+
+/* The standard YBA inline link: black text with a 2px rule beneath it. */
+.link {
+  display: inline-block;
+  padding-bottom: 8px;
+  color: var(--c-black);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  border-bottom: var(--underline-weight) solid var(--c-black);
+  transition: opacity 150ms ease;
+}
+
+.link:hover {
+  opacity: 0.6;
+}
+
+/* A quieter version used for "Back" and the footer credit. */
+.link-plain {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: opacity 150ms ease;
+}
+
+.link-plain:hover {
+  opacity: 0.6;
+}
+
+/* --------------------------------------------------------------------------
+   5. Layout primitives
+   -------------------------------------------------------------------------- */
+
+/* The content column: 1320px of content, centred, with gutters that shrink.
+   max-width includes the gutters, so the content box itself is exactly
+   --container wide (1320px) sitting 60px from each edge at 1440px. */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Vertical rhythm between major page sections.
+   Each section carries its space ABOVE itself only, so two sections in a row
+   are always exactly --space-2xl apart, whatever they contain. flow-root
+   stops a child's margin escaping through the zero bottom padding. */
+.section {
+  display: flow-root;
+  padding-block: var(--space-2xl) 0;
+}
+
+.section--tight {
+  padding-block: var(--space-xl) 0;
+}
+
+/* Full-width band that ignores the container's gutters.
+   A band paints a background, so its spacing has to sit OUTSIDE the box —
+   padding would push the colour outwards. A band that opens the page (the
+   homepage's partner strip, which butts straight onto the hero) needs none. */
+.band {
+  width: 100%;
+  margin-top: var(--space-2xl);
+}
+
+main > .band:first-child {
+  margin-top: 0;
+}
+
+.band--surface {
+  background: var(--c-surface);
+}
+
+.band--gradient {
+  background: var(--gradient-brand);
+}
+
+.band--black {
+  background: var(--c-black);
+  color: var(--c-white);
+}
+
+/* The 4-column card row used on the homepage, Resources and the blog.
+   Reflows to 2 columns on tablet and 1 on mobile (see below). */
+/* minmax(0, 1fr) rather than plain 1fr: without it a long unbreakable word
+   (e.g. "CERTIFICATIONS") stops its column shrinking and pushes the whole
+   grid past the page edge. */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg) var(--grid-gap);
+}
+
+/* Rows of blog posts are set further apart than rows of cards. */
+.grid-4--posts {
+  row-gap: var(--space-2xl);
+}
+
+/* --------------------------------------------------------------------------
+   6. Responsive layout
+   --------------------------------------------------------------------------
+   Three breakpoints, used consistently across the whole site:
+     1080px — laptop: gutters tighten
+      840px — tablet: 4-column rows become 2 columns
+      600px — phone:  everything stacks to a single column
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  :root {
+    --gutter: 40px;
+    --space-2xl: 72px;
+  }
+}
+
+@media (max-width: 1080px) {
+  /* Four cards stop fitting comfortably below this width, so go to two. */
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 840px) {
+  :root {
+    --gutter: 32px;
+    --space-2xl: 56px;
+    --rule-height: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --gutter: 20px;
+    --space-2xl: 48px;
+    --rule-height: 8px;
+    --rule-start: 32px;
+  }
+
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Motion preferences
+   --------------------------------------------------------------------------
+   Anyone who has asked their system to reduce motion sees the finished
+   state immediately instead of the animation.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

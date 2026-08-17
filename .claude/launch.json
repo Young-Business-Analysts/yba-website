@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "yba",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/tofu/Downloads/YBA/yba-website/tools/serve.py",
+        "4321"
+      ],
+      "port": 4321
+    }
+  ]
+}

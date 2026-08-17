@@ -1,0 +1,105 @@
+# ============================================================================
+#  YBA website — Apache server configuration
+# ============================================================================
+#  IONOS, Fasthosts, and most other shared hosting run Apache, which reads
+#  this file automatically. Upload it into the web root alongside index.html.
+#
+#  If your host runs nginx instead, this file is simply ignored — ask their
+#  support to enable HTTPS redirection, gzip and a custom 404 instead.
+#
+#  Nothing here is required for the site to work. It makes it faster, more
+#  secure, and gives visitors the branded 404 page instead of the host's.
+# ============================================================================
+
+
+# ----------------------------------------------------------------------------
+# 1. Custom error page
+# ----------------------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+
+# ----------------------------------------------------------------------------
+# 2. Force HTTPS
+# ----------------------------------------------------------------------------
+# Turn this on only AFTER the SSL certificate is active in your hosting panel,
+# otherwise visitors get a certificate warning. Both IONOS and Fasthosts issue
+# a free Let's Encrypt certificate; it usually takes a few minutes to appear.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # http -> https
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Optional: drop the "www." prefix so the site has one canonical address.
+  # Delete these two lines if you would rather keep www.
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+
+# ----------------------------------------------------------------------------
+# 3. Compression — makes the HTML and CSS roughly four times smaller
+# ----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain
+  AddOutputFilterByType DEFLATE application/javascript text/javascript
+  AddOutputFilterByType DEFLATE image/svg+xml
+  # .woff2 and .jpg/.png are already compressed — leave them alone.
+</IfModule>
+
+
+# ----------------------------------------------------------------------------
+# 4. Caching
+# ----------------------------------------------------------------------------
+# Images and fonts never change once uploaded, so they can be cached for a
+# long time. HTML and CSS are kept short so your edits appear straight away.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault                      "access plus 1 week"
+
+  ExpiresByType text/html             "access plus 0 seconds"
+  ExpiresByType text/css              "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
+
+  ExpiresByType image/jpeg            "access plus 1 year"
+  ExpiresByType image/png             "access plus 1 year"
+  ExpiresByType image/svg+xml         "access plus 1 year"
+  ExpiresByType font/woff2            "access plus 1 year"
+</IfModule>
+
+
+# ----------------------------------------------------------------------------
+# 5. Correct file types and character set
+# ----------------------------------------------------------------------------
+AddDefaultCharset UTF-8
+
+<IfModule mod_mime.c>
+  AddType font/woff2  .woff2
+  AddType image/svg+xml .svg
+</IfModule>
+
+
+# ----------------------------------------------------------------------------
+# 6. Basic security headers
+# ----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Stop the site being framed by another site (clickjacking).
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # Stop browsers guessing file types.
+  Header always set X-Content-Type-Options "nosniff"
+  # Do not leak the full URL to sites visitors click through to.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+
+# ----------------------------------------------------------------------------
+# 7. Hide files that should never be public
+# ----------------------------------------------------------------------------
+<FilesMatch "^\.|\.(md|py|json)$">
+  Require all denied
+</FilesMatch>
+
+# Never list the contents of a folder that has no index.html.
+Options -Indexes

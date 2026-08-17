@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Font calibration</title>
+<style>body{font:13px/1.45 monospace;padding:20px}#probe{position:absolute;visibility:hidden;white-space:nowrap;top:-9999px}</style>
+</head>
+<body>
+<div id="probe"></div>
+<pre id="out">measuring…</pre>
+<script>
+/* Ink widths measured off the Figma exports at 1440px. */
+const DISPLAY = { "YOUNG":333, "BRAVE":313, "AMBITIOUS":554, "ABOUT US":502,
+  "RESOURCES":583, "GET INVOLVED":725, "JOIN FOR FREE":757, "BLOG: A TO B":669 };
+const BODY = {
+  "Programmes, mentorship and opportunities for the curious and the capable.":601,
+  "We champion the next generation of business analysts.":434,
+  "We create a space for young business analysts to connect, learn and build lasting relationships.":750,
+  "About us":73 };
+
+const FONTS = ["Montserrat","Poppins","Archivo","Figtree","Jost","Gothic A1","Outfit",
+               "Plus Jakarta Sans","Manrope","Lexend","Nunito Sans","Raleway"];
+
+const probe = document.getElementById("probe");
+const out = document.getElementById("out");
+
+function loadFont(name) {
+  return new Promise(res => {
+    const l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = "https://fonts.googleapis.com/css2?family=" +
+             name.replace(/ /g,"+") + ":wght@400;600;900&display=block";
+    l.onload = () => res(true); l.onerror = () => res(false);
+    document.head.appendChild(l);
+  });
+}
+
+function w(text, family, size, weight, ls) {
+  probe.style.font = `${weight} ${size}px "${family}"`;
+  probe.style.letterSpacing = ls + "px";
+  probe.textContent = text;
+  return probe.getBoundingClientRect().width - ls;   // drop trailing tracking
+}
+
+function score(family, weight, size, targets, lsEm) {
+  const ls = lsEm * size; let sq = 0, n = 0, worst = 0, detail = [];
+  for (const t in targets) {
+    const got = w(t, family, size, weight, ls);
+    const err = (got - targets[t]) / targets[t] * 100;
+    sq += err*err; n++;
+    if (Math.abs(err) > Math.abs(worst)) worst = err;
+    detail.push(`${t.slice(0,24).padEnd(26)} want ${String(targets[t]).padStart(4)}  got ${got.toFixed(0).padStart(4)}  ${err>0?"+":""}${err.toFixed(1)}%`);
+  }
+  return { rms: Math.sqrt(sq/n), worst, detail };
+}
+
+function bestTracking(family) {
+  let best = null;
+  for (let ls = 0.05; ls <= 0.32; ls += 0.0025) {
+    const s = score(family, 900, 72, DISPLAY, ls);
+    if (!best || s.rms < best.rms) best = { ls, ...s };
+  }
+  return best;
+}
+
+(async () => {
+  // A webfont is only fetched once something on the page uses it, so paint a
+  // sample of every family first, then wait for them all to resolve.
+  const stage = document.createElement("div");
+  stage.style.cssText = "position:absolute;top:-9999px;left:0";
+  stage.innerHTML = FONTS.map(f =>
+    `<div style='font:900 72px "${f}"'>AMBITIOUS</div><div style='font:400 16px "${f}"'>About us</div>`
+  ).join("");
+  document.body.appendChild(stage);
+
+  await Promise.all(FONTS.map(loadFont));
+  await document.fonts.ready;
+
+  // A family counts as loaded only if it measures differently from the
+  // generic fallback — that proves it is not silently substituting.
+  const ref = w("AMBITIOUS", "___nope___", 72, 900, 0);
+  const loaded = FONTS.filter(f =>
+    document.fonts.check(`900 72px "${f}"`) &&
+    Math.abs(w("AMBITIOUS", f, 72, 900, 0) - ref) > 0.5);
+
+  const lines = [`loaded: ${loaded.join(", ")}`, `NOT loaded: ${FONTS.filter(f=>!loaded.includes(f)).join(", ") || "(none)"}`,
+                 "", "=== DISPLAY (72px / 900) at each font's own best tracking ==="];
+  const res = loaded.map(f => ({ f, ...bestTracking(f) })).sort((a,b) => a.rms - b.rms);
+  res.forEach(r => lines.push(`${r.f.padEnd(20)} tracking ${r.ls.toFixed(3)}em   RMS ${r.rms.toFixed(2)}%   worst ${r.worst.toFixed(1)}%`));
+
+  lines.push("", "=== detail, top 3 ===");
+  res.slice(0,3).forEach(r => { lines.push("", `${r.f} @ ${r.ls.toFixed(3)}em`);
+    score(r.f,900,72,DISPLAY,r.ls).detail.forEach(d => lines.push("   "+d)); });
+
+  lines.push("", "=== BODY (16px / 400, no tracking) ===");
+  const b = loaded.map(f => ({ f, ...score(f,400,16,BODY,0) })).sort((a,b)=>a.rms-b.rms);
+  b.forEach(r => lines.push(`${r.f.padEnd(20)} RMS ${r.rms.toFixed(2)}%   worst ${r.worst.toFixed(1)}%`));
+  lines.push("", "detail, top 2:");
+  b.slice(0,2).forEach(r => { lines.push("", r.f);
+    score(r.f,400,16,BODY,0).detail.forEach(d => lines.push("   "+d)); });
+
+  out.textContent = lines.join("\n");
+})();
+</script>
+</body>
+</html>

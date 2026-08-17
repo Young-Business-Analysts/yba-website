@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>YBA — responsive check</title>
+<style>
+ body{font:13px/1.5 ui-monospace,monospace;padding:16px;margin:0}
+ table{border-collapse:collapse}
+ td,th{padding:3px 9px;border-bottom:1px solid #eee;text-align:center}
+ td:first-child,th:first-child{text-align:left}
+ .ok{color:#0a7a2f}.bad{color:#c00;font-weight:700}
+ iframe{border:0;position:absolute;left:-6000px;height:600px}
+</style>
+</head>
+<body>
+<h1 style="font:600 16px system-ui">Horizontal overflow check</h1>
+<p style="font:13px system-ui;color:#555">Each cell shows how many pixels the page is wider than the viewport. 0 is correct — any positive number means something is forcing a sideways scrollbar.</p>
+<table id="t"><thead><tr><th>page</th></tr></thead><tbody></tbody></table>
+<div id="frames"></div>
+<script>
+const PAGES = ["index.html","about.html","get-involved.html","join.html","resources.html",
+  "resources-certifications.html","resources-publications.html","resources-awards.html",
+  "resources-podcasts.html","resources-events.html","blog.html","blog-post.html","privacy.html"];
+const WIDTHS = [1440, 1280, 1024, 900, 768, 600, 480, 390, 320];
+
+const head = document.querySelector("#t thead tr");
+WIDTHS.forEach(w => head.insertAdjacentHTML("beforeend", `<th>${w}</th>`));
+const tbody = document.querySelector("#t tbody");
+
+function check(page, width) {
+  return new Promise(res => {
+    const f = document.createElement("iframe");
+    f.style.width = width + "px";
+    f.src = "/" + page;
+    f.onload = () => f.contentWindow.document.fonts.ready.then(() => setTimeout(() => {
+      const d = f.contentDocument.documentElement;
+      res(Math.max(0, d.scrollWidth - width));
+      f.remove();
+    }, 90));
+    document.getElementById("frames").appendChild(f);
+  });
+}
+
+(async () => {
+  for (const p of PAGES) {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${p}</td>`;
+    tbody.appendChild(row);
+    for (const w of WIDTHS) {
+      const over = await check(p, w);
+      row.insertAdjacentHTML("beforeend",
+        `<td class="${over ? "bad" : "ok"}">${over || "0"}</td>`);
+    }
+  }
+  document.title = "done";
+})();
+</script>
+</body>
+</html>

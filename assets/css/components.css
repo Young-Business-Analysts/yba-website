@@ -1,0 +1,646 @@
+/* ==========================================================================
+   COMPONENTS — the reusable pieces every page is assembled from
+   ==========================================================================
+   Header + navigation, the animated header rule, buttons, cards, media rows,
+   the "Become a member" band and the footer.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Site header
+   --------------------------------------------------------------------------
+   Transparent by default so it can sit on top of the gradient hero on the
+   homepage, or on plain white everywhere else.
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: relative;
+  z-index: 20;
+  padding-block: var(--header-pad-y);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.site-logo {
+  flex: none;
+  display: block;
+  width: var(--logo-width);
+}
+
+.site-logo img {
+  width: 100%;
+  height: auto;
+}
+
+/* --- Navigation ---------------------------------------------------------- */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 35px;              /* space between the last link and the button */
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 36px;              /* measured gap between nav links             */
+  margin: 0;
+}
+
+.site-nav__link {
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 150ms ease;
+}
+
+.site-nav__link:hover {
+  opacity: 0.6;
+}
+
+/* The current page is underlined so people know where they are. */
+.site-nav__link[aria-current="page"] {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 2px;
+}
+
+/* --- Mobile menu button -------------------------------------------------- */
+
+.nav-toggle {
+  display: none;          /* shown at the mobile breakpoint below */
+  flex: none;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  background: var(--c-black);
+  border: 0;
+  cursor: pointer;
+}
+
+.nav-toggle__bar,
+.nav-toggle__bar::before,
+.nav-toggle__bar::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--c-white);
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.nav-toggle__bar {
+  margin-inline: auto;
+  position: relative;
+}
+
+.nav-toggle__bar::before,
+.nav-toggle__bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.nav-toggle__bar::before { top: -7px; }
+.nav-toggle__bar::after  { top: 7px; }
+
+/* Open state: the three bars become a cross. */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar::before {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   2. Page header — the title with the animated rule beside it
+   --------------------------------------------------------------------------
+   THE SIGNATURE ANIMATION.
+   On page load the black line starts at the length of the dash inside the
+   Y-B—A logo (--rule-start) and extends out to the right edge of the page.
+
+   How it is put together:
+     .page-header__row   flex row holding ONE line of the title plus the rule.
+                         Its negative right margin pulls it out of the
+                         centred container so the line reaches the very edge
+                         of the screen at any window width. On the homepage
+                         hero it wraps only the last line ("Ambitious"), which
+                         is why the rule lines up with that line and not the
+                         middle of the three.
+     .header-rule        an empty box that flex-grows to the final length.
+     .header-rule::after the black bar itself, animated from --rule-start to
+                         100% of that box. Animating the inner bar (rather
+                         than the box) means the easing plays across the full
+                         distance on every page, whatever the title's length.
+   -------------------------------------------------------------------------- */
+
+.page-header__row {
+  display: flex;
+  align-items: center;
+  gap: var(--rule-gap);
+  /* Break out of the centred container, right edge only. */
+  margin-right: calc(50% - 50vw);
+}
+
+/* The title text is an anonymous flex item; only the rule should grow.
+   min-width:0 lets the title wrap on very narrow screens instead of forcing
+   the row wider than the page. */
+.page-header__row > .page-title,
+.page-header__row > .u-display {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.header-rule {
+  flex: 1 1 auto;
+  position: relative;
+  height: var(--rule-height);
+  /* Nudge down to sit on the optical centre of the title, as designed. */
+  margin-top: 3px;
+  overflow: hidden;
+}
+
+.header-rule::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;              /* pinned to the left, so it grows right */
+  width: 100%;
+  background: var(--c-black);
+  animation: rule-extend var(--rule-duration) var(--rule-ease) var(--rule-delay) both;
+}
+
+@keyframes rule-extend {
+  from { width: var(--rule-start); }
+  to   { width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   3. Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--btn-height);
+  padding: 0 var(--btn-pad-x);
+  background: var(--c-black);
+  color: var(--c-white);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  /* The outline is drawn inside the box so hovering never changes the
+     button's size — the designed 131x46 stays exact. */
+  box-shadow: inset 0 0 0 2px var(--c-black);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.btn:hover {
+  background: var(--c-white);
+  color: var(--c-black);
+}
+
+/* The larger button used in page body copy (18px label). */
+.btn--lg {
+  font-size: 18px;
+  padding-inline: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Cards — image on top, off-white body beneath
+   -------------------------------------------------------------------------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  /* The design draws these cards at a fixed 430px so a row always squares up,
+     even when one card carries much less copy. Released on narrow screens,
+     where the cards stack and a fixed height would only add dead space. */
+  min-height: 430px;
+  background: var(--c-surface);
+}
+
+@media (max-width: 840px) {
+  .card { min-height: 0; }
+}
+
+.card__media {
+  aspect-ratio: 312 / 170;
+  overflow: hidden;
+  background: var(--c-placeholder);
+}
+
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A grey box stands in wherever the design has no photo chosen yet. */
+.card__media--empty {
+  background: var(--c-placeholder);
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 14px 16px 19px;
+}
+
+.card__title {
+  margin-bottom: 16px;
+}
+
+.card__text {
+  margin: 0;
+}
+
+/* The link follows the copy rather than being pushed to the bottom, which is
+   how the cards sit in the design — the panels themselves stretch to match. */
+.card__link {
+  margin-top: 12px;
+  align-self: flex-start;
+}
+
+/* --------------------------------------------------------------------------
+   5. Post cards — used on the blog listing and "Read more"
+   --------------------------------------------------------------------------
+   No background panel: image, then a 20px title, then supporting copy.
+   -------------------------------------------------------------------------- */
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-card__media {
+  aspect-ratio: 312 / 170;
+  margin-bottom: 14px;
+  overflow: hidden;
+  background: var(--c-surface);
+}
+
+.post-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-card__title {
+  margin-bottom: 13px;
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-book);
+  line-height: 1.3;
+}
+
+.post-card__text {
+  margin: 0;
+}
+
+.post-card:hover .post-card__title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Media rows — the list format on the Resources sub-pages
+   --------------------------------------------------------------------------
+   A 145x145 thumbnail on the left, title / description / link on the right.
+   -------------------------------------------------------------------------- */
+
+.media-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.media-row {
+  display: grid;
+  grid-template-columns: 145px minmax(0, 1fr);
+  gap: 25px;
+  align-items: start;
+}
+
+.media-row__thumb {
+  width: 145px;
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--c-surface);
+}
+
+.media-row__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Partner logos sit inside the box rather than filling it. */
+.media-row__thumb--logo img {
+  width: auto;
+  height: auto;
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.media-row__body {
+  max-width: 720px;
+}
+
+.media-row__title {
+  margin-bottom: 9px;
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-book);
+  line-height: var(--lh-lead);
+}
+
+.media-row__text {
+  margin: 0 0 8px;
+}
+
+/* --------------------------------------------------------------------------
+   7. "Become a member" band — appears at the foot of every page
+   -------------------------------------------------------------------------- */
+
+.cta-band {
+  margin-top: var(--space-2xl);
+  padding-block: 58px 60px;
+  background: var(--gradient-brand);
+}
+
+.cta-band__title {
+  margin-bottom: 10px;
+}
+
+.cta-band__text {
+  margin-bottom: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   8. Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  background: var(--c-black);
+  color: var(--c-white);
+  padding-block: var(--footer-pad-y);
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: var(--space-lg);
+}
+
+/* Logo at the top, legal line pinned to the bottom. */
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.site-footer__logo {
+  display: block;
+  width: var(--logo-width);
+}
+
+.site-footer__legal {
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+
+.site-footer__legal a {
+  color: inherit;
+}
+
+.site-footer__nav {
+  display: flex;
+  gap: 34px;
+}
+
+.site-footer__col {
+  width: 159px;
+}
+
+.site-footer__heading {
+  margin-bottom: 20px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  line-height: 20px;
+}
+
+.site-footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;               /* 20px line + 20px gap = the designed 40px pitch */
+  margin: 0;
+}
+
+.site-footer__list a {
+  display: block;
+  color: inherit;
+  font-size: var(--fs-sm);
+  line-height: 20px;
+  text-decoration: none;
+  transition: opacity 150ms ease;
+}
+
+.site-footer__list a:hover {
+  opacity: 0.6;
+}
+
+/* --------------------------------------------------------------------------
+   9. Partner logo strip
+   -------------------------------------------------------------------------- */
+
+.partners {
+  text-align: center;
+  padding-block: 38px;
+}
+
+.partners__title {
+  margin-bottom: 34px;
+}
+
+.partners__list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+/* Each logo was cropped from the design at its exact size, so at full width
+   they are simply drawn as-is — no scaling, which is what keeps this row
+   pixel-identical to the design. They are scaled down only on smaller
+   screens, in the media queries at the foot of this file. */
+.partners__list img {
+  width: auto;
+  height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   10. Share buttons (blog article)
+   -------------------------------------------------------------------------- */
+
+.share-list {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+}
+
+.share-list a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--c-black);
+  color: var(--c-white);
+  transition: opacity 150ms ease;
+}
+
+.share-list a:hover {
+  opacity: 0.75;
+}
+
+.share-list svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   11. Responsive behaviour
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1180px) {
+  .site-nav__list { gap: 24px; }
+  .site-nav { gap: 24px; }
+}
+
+@media (max-width: 1024px) {
+  /* Collapse the navigation into a menu button + drop-down panel. */
+  .nav-toggle {
+    display: block;
+    order: 2;
+  }
+
+  .site-nav {
+    position: absolute;
+    top: 100%;
+    right: var(--gutter);
+    left: var(--gutter);
+    z-index: 30;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-sm);
+    background: var(--c-black);
+    /* Hidden until the button is pressed. */
+    display: none;
+  }
+
+  .site-nav[data-open="true"] {
+    display: flex;
+  }
+
+  .site-nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .site-nav__link {
+    display: block;
+    padding: 14px var(--space-sm);
+    color: var(--c-white);
+  }
+
+  .site-nav__link[aria-current="page"] {
+    border-bottom: 0;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .site-nav .btn {
+    margin-top: var(--space-sm);
+    background: var(--c-white);
+    color: var(--c-black);
+    border-color: var(--c-white);
+  }
+
+  .site-nav .btn:hover {
+    background: transparent;
+    color: var(--c-white);
+  }
+
+  .site-header__inner {
+    position: relative;
+  }
+}
+
+@media (max-width: 1080px) {
+  /* Scale the logo row down as one: capping the height keeps every logo's
+     aspect ratio, and BCS keeps its taller shield proportion. */
+  .partners__list { gap: 36px; }
+  .partners__list img { max-height: 34px; }
+  .partners__list .partner--tall { max-height: 82px; }
+}
+
+@media (max-width: 840px) {
+  .partners__list { gap: 32px; }
+  .partners__list img { max-height: 30px; }
+  .partners__list .partner--tall { max-height: 72px; }
+
+  .site-footer__inner {
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .site-footer__brand { gap: var(--space-xl); }
+  .site-footer__nav { gap: var(--space-xl); }
+  .site-footer__col { width: auto; flex: 1; }
+
+  .media-row {
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .media-row__thumb { width: 110px; height: 110px; }
+}
+
+@media (max-width: 600px) {
+  .site-logo { width: 150px; }
+  .site-footer__logo { width: 150px; }
+
+  .media-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .media-row__thumb { width: 145px; height: 145px; }
+
+  .partners__list { gap: 28px; }
+  .share-list { gap: 16px; }
+}

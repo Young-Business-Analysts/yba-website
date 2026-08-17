@@ -1,0 +1,115 @@
+/* ==========================================================================
+   TOKENS — the single place to change the look of the whole site
+   ==========================================================================
+   Every colour, font size and spacing value used anywhere in the site is
+   defined here as a CSS custom property. Change a value here and it updates
+   everywhere. Nothing in this file draws anything by itself.
+
+   Values were measured directly from the Figma exports at 1440px wide.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------
+     BRAND COLOURS
+     --------------------------------------------------------------------- */
+  --c-black: #000000;         /* text, buttons, footer, the header rule    */
+  --c-white: #ffffff;         /* default page background                   */
+  --c-surface: #faf8f9;       /* off-white: cards, "Working with" band     */
+  --c-placeholder: #c4c4c4;   /* grey box where a photo has not been chosen */
+
+  --c-blue: #cedcf9;          /* periwinkle — outer colour of the gradient  */
+  --c-green: #dcf8cf;         /* pale green — centre colour of the gradient */
+
+  /* The signature YBA gradient. It is an ellipse whose radii are exactly
+     half the width and half the height of the box, green in the middle
+     fading to blue at every edge. Used on the hero and the CTA band. */
+  --gradient-brand: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    var(--c-green) 0%,
+    var(--c-blue) 100%
+  );
+
+  /* ---------------------------------------------------------------------
+     TYPEFACES
+     ---------------------------------------------------------------------
+     YBA's brand font is Gotham (a licensed Hoefler&Co typeface). It is
+     listed first so that if you later self-host it (see assets/fonts/
+     README.md) every page picks it up with no other changes. Montserrat is
+     the free stand-in that ships with the site — it is the closest widely
+     available match for Gotham's geometric shapes. */
+  --font-display: "Gotham", "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Gotham", "Montserrat", "Helvetica Neue", Arial, sans-serif;
+
+  --fw-book: 400;    /* body copy                       (Gotham Book)  */
+  --fw-medium: 600;  /* nav, buttons, labels, emphasis   (Gotham Medium) */
+  --fw-black: 900;   /* all display headings             (Gotham Black)  */
+
+  /* ---------------------------------------------------------------------
+     TYPE SCALE
+     ---------------------------------------------------------------------
+     Display sizes are uppercase and widely tracked, matching the logo.
+     --step-* values drive the fluid (responsive) sizes in base.css. */
+  --fs-display: 72px;   /* page titles + homepage hero                  */
+  --fs-h2: 42px;        /* every section heading: BUILT FOR THE BOLD,
+                           MEET THE TEAM, SHARE, and the sub-page titles */
+  --fs-h4: 24px;        /* card titles and small labels (WORKING WITH)  */
+  --fs-lead: 20px;      /* intro paragraph under a page title           */
+  --fs-body: 16px;      /* default body copy                           */
+  --fs-sm: 14px;        /* footer links, captions, tags                */
+
+  --lh-display: 0.97;   /* 70px at 72px — tight, as designed           */
+  --lh-heading: 1.1;
+  --lh-lead: 1.3;       /* 26px at 20px                                */
+  --lh-body: 1.375;     /* 22px at 16px                                */
+
+  /* Tracking. Display type in this brand is set very wide — it echoes the
+     spacing of the Y-B—A logo. These three values were fitted by measuring
+     every heading in the Figma exports and solving for the tracking that
+     reproduces their widths in Montserrat (mean error under 1.5%). */
+  --ls-display: 0.188em;   /* 72px titles  */
+  --ls-heading: 0.172em;   /* 42px headings */
+  --ls-label: 0.186em;     /* 24px labels   */
+  --ls-body: 0;
+
+  /* ---------------------------------------------------------------------
+     LAYOUT
+     --------------------------------------------------------------------- */
+  --container: 1320px;  /* content column at full size (1440 − 2 × 60)   */
+  --gutter: 60px;       /* page side padding on large screens            */
+  --grid-gap: 24px;     /* gap between the 4 columns of a card row       */
+
+  /* ---------------------------------------------------------------------
+     THE HEADER RULE
+     ---------------------------------------------------------------------
+     The long black line beside the page title. It animates on page load
+     from the length of the dash inside the logo out to the page edge. */
+  --rule-height: 15px;      /* thickness of the line                     */
+  --rule-gap: 14px;         /* space between the title and the line      */
+  --rule-start: 50px;       /* starting length = the logo's B—A dash     */
+  --rule-duration: 3000ms;
+  --rule-delay: 400ms;
+  --rule-ease: cubic-bezier(0.22, 0.61, 0.36, 1); /* fast out, soft stop */
+
+  /* ---------------------------------------------------------------------
+     SPACING SCALE
+     ---------------------------------------------------------------------
+     Section rhythm, measured from the designs. */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 56px;
+  --space-2xl: 72px;    /* gap between major page sections               */
+  --space-3xl: 120px;
+
+  /* ---------------------------------------------------------------------
+     COMPONENT SIZES
+     --------------------------------------------------------------------- */
+  --btn-height: 46px;
+  --btn-pad-x: 17px;
+  --logo-width: 191px;      /* the Y-B—A lockup, as drawn in the SVG     */
+  --header-pad-y: 60px;     /* space above and below the logo            */
+  --footer-pad-y: 30px;
+
+  --underline-weight: 2px;  /* the rule under inline "read more" links   */
+}
