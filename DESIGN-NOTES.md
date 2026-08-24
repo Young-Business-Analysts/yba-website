@@ -1,5 +1,10 @@
 # Design notes
 
+> **August 2026 — these notes describe the original build.** The site has since
+> been updated to the YBA-2 designs (new nav, new Volunteer and Partnerships
+> pages, text-only blog cards, real team photos). See `CHANGELOG-YBA2.md` for
+> everything that changed and the current per-page accuracy figures.
+
 How this website was derived from the Figma prototypes, what was measured,
 and the handful of decisions where the designs needed interpreting.
 

@@ -5,7 +5,7 @@
       "name": "yba",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
-        "/Users/tofu/Downloads/YBA/yba-website/tools/serve.py",
+        "/Users/tofu/Documents/YBA/yba-website/tools/serve.py",
         "4321"
       ],
       "port": 4321

@@ -13,18 +13,26 @@
 </style>
 </head>
 <body>
-<h1 style="font:600 16px system-ui">Rendered height vs Figma export (1440px wide)</h1>
+<h1 style="font:600 16px system-ui">Rendered height vs YBA-2 design (1440px wide)</h1>
 <table id="t"><thead><tr><th>page</th><th>rendered</th><th>Figma</th><th>diff</th><th>%</th></tr></thead><tbody></tbody></table>
 <div id="frames"></div>
 <script>
 // Each Figma frame's exported pixel height at 1440px wide.
 const PAGES = [
-  ["index.html", 2675], ["about.html", 2917], ["get-involved.html", 2004],
-  ["join.html", 2110], ["resources.html", 1902],
-  ["resources-certifications.html", 1435], ["resources-publications.html", 1250],
-  ["resources-awards.html", 1250], ["resources-podcasts.html", 1805],
-  ["resources-events.html", 1805], ["blog.html", 1806],
-  ["blog-post.html", 2793], ["privacy.html", 3792]
+  ["index.html", 2508],
+  ["about.html", 2877],
+  ["volunteer.html", 2672],
+  ["partnerships.html", 2620],
+  ["join.html", 1558],
+  ["resources.html", 1862],
+  ["resources-certifications.html", 1402],
+  ["resources-publications.html", 1114],
+  ["resources-awards.html", 1224],
+  ["resources-podcasts.html", 1772],
+  ["resources-events.html", 1514],
+  ["blog.html", 1510],
+  ["blog-post.html", 2577],
+  ["privacy.html", 3846]
 ];
 
 const tbody = document.querySelector("#t tbody");

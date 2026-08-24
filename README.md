@@ -28,7 +28,9 @@ plain refresh always shows your latest edit.
 yba-website/
 ├── index.html                       Homepage
 ├── about.html                       About us
-├── get-involved.html                Get involved
+├── volunteer.html                   Volunteer (become an Ambassador)
+├── partnerships.html                Partnerships + Our partners
+├── get-involved.html                Get involved (kept; not in the current designs)
 ├── join.html                        Join for free
 ├── resources.html                   Resources hub (6 cards)
 │   ├── resources-certifications.html
@@ -99,9 +101,10 @@ block and change the name, role and image. If there is no photo yet, leave
 
 ### Add a blog post
 
-`blog.html`, inside `<ul class="grid-4 grid-4--posts">`. Copy one `<li>` block,
-change the title, the summary and the image, and point `href` at your new
-article page. To create the article itself, copy `blog-post.html` and edit it.
+`blog.html`, inside `<ul class="grid-4 grid-4--posts">`. Copy one `<li>` block
+and change the title, the excerpt and the two `href`s. Blog cards are text
+only — title, excerpt, link — so there is no image to supply. To create the
+article itself, copy `blog-post.html` and edit it.
 
 ### Add a resource
 
@@ -134,16 +137,17 @@ These are marked with `<!-- TODO -->` comments in the HTML:
 
 | Where | What is needed |
 |---|---|
-| Footer, every page | The real **LinkedIn** URL |
 | Footer, every page | A **Contact us** address or page |
 | Footer, every page | Deborah Garfen's portfolio/LinkedIn URL for the design credit |
 | `join.html` | The real sign-up destination for the "Join for free" button |
-| Resource sub-pages | Real link labels and destinations — the design left these as "Lorem ipsum" |
-| `privacy.html` | The two `[Insert … email address]` placeholders |
+| `volunteer.html` | The Ambassador application form URL |
+| `partnerships.html` | Partnership enquiries address, and each partner's website |
+| Resource sub-pages | Destination URLs for each entry (labels are now final) |
+| `privacy.html` | The `[Insert email address]` placeholder in section 11 |
 
 The blog pages and the homepage blog strip use the design's placeholder copy
-("Lorem ipsum…") and the checkerboard placeholder image, exactly as the
-prototype does. Replace them as real posts are written.
+("Lorem ipsum…"), exactly as the prototype does. Replace them as real posts are
+written — the cards are text-only now, so there is no image to supply.
 
 ---
 
@@ -186,3 +190,7 @@ full rendered height is within **5 pixels** of the original — see
 `DESIGN-NOTES.md` for the per-page figures, the measurements the layout was
 built from, and the handful of deliberate decisions where the designs
 contradicted themselves.
+
+The site was updated in August 2026 to the **YBA-2** designs. Every change made
+in that pass — and how to reverse each one — is recorded in
+`CHANGELOG-YBA2.md`.

@@ -227,6 +227,13 @@ a {
   padding-block: var(--space-xl) 0;
 }
 
+/* Use on the last section of a page that does NOT end with the full-bleed
+   "Become a member" band — that band supplies its own space, plain content
+   does not. */
+.section--end {
+  padding-bottom: var(--space-2xl);
+}
+
 /* Full-width band that ignores the container's gutters.
    A band paints a background, so its spacing has to sit OUTSIDE the box —
    padding would push the colour outwards. A band that opens the page (the
@@ -266,7 +273,7 @@ main > .band:first-child {
 
 /* Rows of blog posts are set further apart than rows of cards. */
 .grid-4--posts {
-  row-gap: var(--space-2xl);
+  row-gap: 84px;
 }
 
 /* --------------------------------------------------------------------------

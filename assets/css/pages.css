@@ -105,6 +105,56 @@
 }
 
 /* --------------------------------------------------------------------------
+   3c. Rich text — long-form body copy with sub-headings and bullet lists
+   --------------------------------------------------------------------------
+   Used on Volunteer and Partnerships. Headings reuse .section-title (42px) and
+   .card-title (24px); only the vertical rhythm is defined here, measured from
+   the YBA-2 designs.
+   -------------------------------------------------------------------------- */
+
+.rich-text {
+  max-width: 940px;
+}
+
+.rich-text > * + * {
+  margin-top: 22px;         /* paragraph to paragraph */
+}
+
+.rich-text > .section-title + * {
+  margin-top: 26px;         /* after a 42px heading */
+}
+
+.rich-text > .card-title {
+  margin-top: 24px;         /* before a 24px sub-heading */
+}
+
+.rich-text > .card-title + * {
+  margin-top: 24px;         /* and after one */
+}
+
+.rich-text ul {
+  padding-left: 28px;
+  list-style: disc;
+}
+
+.rich-text li {
+  margin-bottom: 8px;
+}
+
+.rich-text li:last-child {
+  margin-bottom: 0;
+}
+
+.rich-text__actions {
+  margin-top: 26px;
+}
+
+/* Opt-in wider gap above a block, where the design sets one. */
+.rich-text > .rich-text__spaced {
+  margin-top: 44px;
+}
+
+/* --------------------------------------------------------------------------
    4. Full-width feature photo
    -------------------------------------------------------------------------- */
 
@@ -138,9 +188,26 @@
   margin: 0;
 }
 
-/* A section heading with no supporting line beneath it. */
+/* Partnerships sets "Our partners" further from its standfirst than the
+   homepage section intros do — measured from the YBA-2 design. */
+.section-intro--roomy {
+  margin-bottom: 32px;
+}
+
+.section-intro--roomy .section-intro__title {
+  margin-bottom: 34px;
+}
+
+/* A section heading with no supporting line beneath it (the homepage's
+   "Blog: A to B" strip). Measured at 49px in the YBA-2 design. */
 .section-heading {
-  margin-bottom: 36px;
+  margin-bottom: 49px;
+}
+
+/* The blog listing drops straight from the page title into the grid, and sits
+   a little lower than a page that opens with a paragraph. */
+.post-grid {
+  padding-top: 16px;
 }
 
 /* Resources: the standfirst sits between the page title and the card grid.
@@ -313,7 +380,7 @@
 }
 
 .article-share {
-  margin-top: 44px;
+  margin-top: 46px;
 }
 
 .article-share__title {
@@ -325,7 +392,7 @@
 }
 
 .read-more__title {
-  margin-bottom: 34px;
+  margin-bottom: 48px;
 }
 
 /* --------------------------------------------------------------------------
@@ -380,7 +447,13 @@
   list-style: disc;
 }
 
+/* The YBA-2 privacy design sets 8px between list items (the earlier design
+   ran them together). Same rhythm as .rich-text. */
 .legal li {
+  margin-bottom: 8px;
+}
+
+.legal li:last-child {
   margin-bottom: 0;
 }
 
