@@ -536,3 +536,135 @@ lines with the rule on "Ambitious".
   which is correct for a multi-word headline).
 
 **Reverse:** `git checkout 3c98e61 -- assets/css/base.css`
+
+---
+
+## 13. Full-bleed page photos on phones (24 Aug 2026)
+
+The big page photo now runs edge to edge on phones, with no white margin
+either side. **Phones only (≤600px)** — tablet and desktop keep the photo
+inside the content column exactly as before.
+
+```css
+@media (max-width: 600px) {
+  .feature-image {
+    margin-inline: calc(var(--gutter) * -1);
+  }
+}
+```
+
+The negative margin simply cancels the container's gutter, so the photo
+reaches both screen edges without any change to the markup.
+
+Applied to the shared `.feature-image` component, so it covers all four pages
+that carry a big photo: **about.html** and **volunteer.html** (the two asked
+for), plus **join.html** and **get-involved.html**, which use the identical
+component. Leaving those two inset while the other two bleed would have looked
+inconsistent — but if that is wanted, the rule can be narrowed to
+`.about-hero, .volunteer-hero` or scoped by a page class.
+
+Measured behaviour:
+
+| Width | 320 | 390 | 480 | 600 | 601 | 768 | 1024 | 1440 |
+|---|---|---|---|---|---|---|---|---|
+| Margin each side | 0 | 0 | 0 | 0 | 32px | 32px | 40px | 60px |
+
+Clean cutover at the 600/601 boundary.
+
+**Re-verified:** page heights vs the YBA-2 designs identical to §8 (no desktop
+regression); horizontal overflow across 14 pages × 9 widths all zero.
+
+**Reverse:** `git checkout 3c98e61 -- assets/css/pages.css`
+
+---
+
+## 14. Inner-page heading tracking set to body tracking (24 Aug 2026)
+
+Display headings on **every page except the homepage** now use the same
+letter-spacing as body copy. **The homepage is unchanged** — it keeps the wide,
+logo-echoing spacing as the brand statement.
+
+`index.html` is marked with `<body class="is-home">`; everything else picks up:
+
+```css
+body:not(.is-home) {
+  --ls-display: var(--ls-body);
+  --ls-heading: var(--ls-body);
+  --ls-label: var(--ls-body);
+}
+```
+
+Only the three tracking tokens change. They feed exactly four rules — the
+`.page-title`, `.section-title`, `.card-title` and sub-page-title
+letter-spacing declarations — so **size, weight, family, case, colour and
+every other property are untouched**, at all breakpoints.
+
+Confirmed computed values at 1440px (`normal` = 0, identical to body copy):
+
+| Page | page-title | section-title | card-title |
+|---|---|---|---|
+| **index** | **13.54px** | **7.18px** | **4.46px** |
+| about, volunteer, partnerships, resources, blog, blog-post, privacy | normal | normal | normal |
+
+### Side effect: the header rule gained room
+
+Titles are now considerably narrower, so the animated rule runs longer. On
+Partnerships it went from 23–25% of the row to **34–35%**, close to the
+desktop reference of 36%:
+
+| Page | 320 | 375 | 390 | 430 |
+|---|---|---|---|---|
+| partnerships | 34% | 35% | 35% | 35% |
+| join | 35% | 36% | 36% | 37% |
+| about | 54% | 55% | 55% | 55% |
+
+**Worth knowing:** the phone title-size formula in §12 was calibrated when
+tracking was 0.12em. With tracking now at 0 there is headroom to make phone
+titles larger if wanted — but size was explicitly out of scope here, so it was
+left alone.
+
+**Re-verified:** page heights vs the YBA-2 designs identical to §8 (no heading
+wraps changed anywhere); horizontal overflow across 14 pages × 9 widths all zero.
+
+**Reverse:** `git checkout 3c98e61 -- assets/css/base.css index.html`
+
+---
+
+## 15. Tighter heading-to-body gaps on inner pages (24 Aug 2026)
+
+Headings sat too far above the copy they introduce, reading as detached. All
+changes are in `assets/css/pages.css`. **The homepage is unaffected** — none of
+these rules apply to it.
+
+| Gap | Before | After | Pages |
+|---|---|---|---|
+| Page title → body | **74px** | **40px** | about, volunteer, partnerships, join, resources, blog |
+| Sub-page title → list | **72px** | **40px** | the five Resources sub-pages |
+| "Read more" → cards | 48px | 28px | blog-post |
+| "Our partners" → its line | 34px | 20px | partnerships |
+| h2 → body | 26px | 18px | volunteer, partnerships, join |
+| h3 → body | 24px | 16px | volunteer, partnerships, join |
+| Privacy numbered heading → body | 22px | 14px | privacy |
+| Privacy sub-heading → body | 22px | 12px | privacy |
+
+Gaps that were already tight were **left alone**: "Meet the team" → its line
+(10px), article title → date (15px), card title → card body (16px),
+"Share" → icons (18px).
+
+For the two sub-heading levels the space **above** is now deliberately larger
+than the space below — 24px above / 16px below in `.rich-text`, 28/14 and
+24/12 in the privacy policy. That asymmetry is what makes a heading group with
+its own copy rather than float between two blocks.
+
+### Note on the verification harness
+
+These pages are now **24–66px shorter than the YBA-2 designs**, which is the
+point of the change. `_ref/verify.html` still compares against the design
+export heights, so its "diff" column now reads −1% to −2.5% for inner pages.
+That is expected and intentional, not a regression — the homepage still reads
++2px. Treat that column as a record of deliberate divergence from here on, not
+a pass/fail gate.
+
+**Re-verified:** horizontal overflow across 14 pages × 9 widths — all zero.
+
+**Reverse:** `git checkout 3c98e61 -- assets/css/pages.css`

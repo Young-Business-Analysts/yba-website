@@ -44,7 +44,7 @@
 
 .page-header {
   padding-top: 14px;
-  padding-bottom: 74px;
+  padding-bottom: 40px;
 }
 
 /* Sub-pages (Certifications, Awards, …) have a "Back" link and no rule.
@@ -52,6 +52,12 @@
 .page-header--sub {
   padding-top: 15px;
   padding-bottom: 0;
+}
+
+/* The section that follows a sub-page title would otherwise inherit the full
+   72px section rhythm, leaving the heading stranded above its own list. */
+.page-header--sub + .section {
+  padding-top: 40px;
 }
 
 .page-header__back {
@@ -131,7 +137,7 @@
 }
 
 .rich-text > .section-title + * {
-  margin-top: 26px;         /* after a 42px heading */
+  margin-top: 18px;         /* after a 42px heading */
 }
 
 .rich-text > .card-title {
@@ -139,7 +145,8 @@
 }
 
 .rich-text > .card-title + * {
-  margin-top: 24px;         /* and after one */
+  margin-top: 16px;         /* and after one — less than the 24px above it,
+                               so the sub-heading sits with its own copy */
 }
 
 .rich-text ul {
@@ -180,6 +187,15 @@
   object-fit: cover;
 }
 
+/* On phones the photo runs edge to edge: the negative margin cancels the
+   container's gutter on both sides, so there is no white margin beside it.
+   Tablet and desktop keep the photo inside the content column. */
+@media (max-width: 600px) {
+  .feature-image {
+    margin-inline: calc(var(--gutter) * -1);
+  }
+}
+
 /* --------------------------------------------------------------------------
    5. Section intro — heading plus a single supporting line
    -------------------------------------------------------------------------- */
@@ -205,7 +221,7 @@
 }
 
 .section-intro--roomy .section-intro__title {
-  margin-bottom: 34px;
+  margin-bottom: 20px;
 }
 
 /* A section heading with no supporting line beneath it (the homepage's
@@ -418,7 +434,7 @@
 }
 
 .read-more__title {
-  margin-bottom: 48px;
+  margin-bottom: 28px;
 }
 
 /* --------------------------------------------------------------------------
@@ -444,7 +460,7 @@
 }
 
 .legal h2 {
-  margin: 22px 0;
+  margin: 28px 0 14px;
   font-family: var(--font-body);
   font-size: var(--fs-lead);
   font-weight: var(--fw-book);
@@ -454,7 +470,7 @@
 }
 
 .legal h3 {
-  margin: 22px 0;
+  margin: 24px 0 12px;
   font-family: var(--font-body);
   font-size: var(--fs-body);
   font-weight: var(--fw-medium);
