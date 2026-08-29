@@ -457,3 +457,82 @@ the artboard rather than measured exactly. All are single-token changes:
   current-page marker all behave correctly, on both phone and tablet widths.
 
 **Reverse:** `git checkout 3c98e61 -- assets/css assets/js '*.html' && rm assets/img/yba-logo-mark.svg`
+
+---
+
+## 12. Phone heading tracking and size (24 Aug 2026)
+
+The Partnerships title was crowding the header rule on phones, leaving the
+signature animated line as a stub. **Phones only (≤600px) — tablet and desktop
+are untouched** and re-verify to identical numbers.
+
+### 12.1 — Tracking tightened (step 1)
+
+Desktop tracking echoes the logo and is calibrated to the Figma designs, but at
+phone sizes it ate the line length and hurt legibility. Below 600px:
+
+| Token | Desktop | Phone |
+|---|---|---|
+| `--ls-display` | 0.188em | **0.12em** |
+| `--ls-heading` | 0.172em | **0.11em** |
+| `--ls-label` | 0.186em | **0.12em** |
+
+Roughly two-thirds — still visibly a tracked display face, not tight.
+
+### 12.2 — Assessment: tracking alone was not enough
+
+Measured on Partnerships at 390px (the longest title on the site):
+
+| | Title | Rule | Rule share | Animation travel |
+|---|---|---|---|---|
+| Before | 324px | 32px | 9% | **0px** — the rule started and ended at 32px |
+| After tracking only | 299px | 57px | 15% | 25px |
+| Desktop reference | — | — | 36% | 570px |
+
+Even at 0.08em — tighter than is tasteful — the rule only reached 19%. The
+title size had to come down as well.
+
+### 12.3 — Title size reduced (step 2)
+
+```css
+.page-title { font-size: min(34px, calc(7.36vw - 1.45px)); }   /* was 8.27vw - 1.65px */
+```
+
+Sized against "PARTNERSHIPS" so the rule keeps about a quarter of the row from
+320px up, reaching the 34px cap at ~500px wide. Result at 390px: title 27.3px,
+rule 90px (24%), animation travels 58px.
+
+### 12.4 — Rule share across the site, by width
+
+| Page | 320 | 375 | 390 | 430 | 480 |
+|---|---|---|---|---|---|
+| index | 42% | 43% | 43% | 43% | 44% |
+| about | 47% | 48% | 48% | 48% | 49% |
+| volunteer | 39% | 40% | 40% | 40% | 41% |
+| **partnerships** | **23%** | **24%** | **24%** | **25%** | **25%** |
+| join | 24% | 25% | 25% | 25% | 26% |
+| resources | 39% | 40% | 40% | 41% | 41% |
+| blog | 31% | 32% | 32% | 32% | 33% |
+
+Partnerships and Join are the tightest, which is expected — they carry the
+longest titles. Everything else has a generous rule.
+
+### 12.5 — Tablet and desktop confirmed unaffected
+
+Partnerships across the range above 600px, where nothing was changed:
+
+| Width | 601 | 768 | 1024 | 1440 |
+|---|---|---|---|---|
+| Rule share | 34% | 43% | 44% | 44% |
+
+No wrapping at any width. The three-line homepage hero still renders as three
+lines with the rule on "Ambitious".
+
+### 12.6 — Re-verified
+
+- Page heights vs the YBA-2 designs: **identical to §8** — no desktop regression.
+- Horizontal overflow, 14 pages × 9 widths: **all zero**.
+- Every sub-page title fits one line at 320px (the blog article headline wraps,
+  which is correct for a multi-word headline).
+
+**Reverse:** `git checkout 3c98e61 -- assets/css/base.css`

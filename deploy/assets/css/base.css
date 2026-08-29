@@ -318,12 +318,25 @@ main > .band:first-child {
     --rule-start: 32px;
   }
 
+  /* Display tracking is dialled back on phones. The desktop values echo the
+     logo and are calibrated to the designs, but at these sizes that much
+     letter-spacing eats the line and hurts legibility. Roughly two-thirds —
+     still visibly tracked, not tight. */
+  :root {
+    --ls-display: 0.12em;
+    --ls-heading: 0.11em;
+    --ls-label: 0.12em;
+  }
+
   /* A long single-word title ("PARTNERSHIPS") cannot hyphenate, so below
      roughly 430px it was breaking mid-word. These scale the title with the
      viewport instead. min() means nothing changes until the text would
      actually overflow — at 480px and above the size is exactly as before. */
   .page-title {
-    font-size: min(34px, calc(8.27vw - 1.65px));
+    /* Sized against the longest title on the site, "PARTNERSHIPS", so the
+       header rule keeps about a quarter of the row and has enough travel for
+       its animation to read. Reaches the 34px cap at ~500px wide. */
+    font-size: min(34px, calc(7.36vw - 1.45px));
   }
 
   .page-header--sub .page-title {
