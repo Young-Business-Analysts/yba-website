@@ -27,17 +27,26 @@
   var nav = document.querySelector("[data-nav]");
 
   if (toggle && nav) {
+    // One helper so every path (click, Escape, resize) stays in step.
+    var setOpen = function (open) {
+      toggle.setAttribute("aria-expanded", String(open));
+      nav.setAttribute("data-open", String(open));
+      // The body flag drives the white logo and the scroll lock in CSS.
+      if (open) {
+        document.body.setAttribute("data-nav-open", "true");
+      } else {
+        document.body.removeAttribute("data-nav-open");
+      }
+    };
+
     toggle.addEventListener("click", function () {
-      var isOpen = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!isOpen));
-      nav.setAttribute("data-open", String(!isOpen));
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
     });
 
     // Close the menu on Escape, and return focus to the button.
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
-        toggle.setAttribute("aria-expanded", "false");
-        nav.setAttribute("data-open", "false");
+        setOpen(false);
         toggle.focus();
       }
     });
@@ -46,9 +55,13 @@
     // desktop nav is not left with stale attributes.
     window.addEventListener("resize", function () {
       if (window.innerWidth > 1024) {
-        toggle.setAttribute("aria-expanded", "false");
-        nav.setAttribute("data-open", "false");
+        setOpen(false);
       }
+    });
+
+    // Tapping any destination closes the panel.
+    nav.addEventListener("click", function (event) {
+      if (event.target.closest("a")) setOpen(false);
     });
   }
 

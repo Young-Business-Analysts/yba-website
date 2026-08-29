@@ -289,3 +289,171 @@ A final sweep confirmed no stale copy anywhere: no "Join a growing network",
 or footer headings remain. The only "Lorem ipsum" link labels left are the blog
 cards, which is what the design specifies, and the only "Get involved" link is
 the homepage card — kept deliberately, per instruction.
+
+---
+
+## 10. Post-review fixes (24 Aug 2026)
+
+Four issues raised after the first review. **Desktop rendering is byte-for-byte
+unchanged** — the verification table in §8 re-runs to exactly the same numbers.
+
+### 10.1 — "Back" links were hard to tap on a phone
+
+The links themselves were never broken: all six point at the right page and
+navigate correctly (confirmed by clicking through). The problem was the **tap
+target: the word "Back" is only 35 × 20px**, well under the 44 × 44px that is
+comfortable on a touch screen, so taps were missing it.
+
+Fixed with an invisible pseudo-element that extends the hit area to
+**67 × 44px** without moving the text or its underline by a pixel:
+
+```css
+.page-header__back { position: relative; }
+.page-header__back::after { content: ""; position: absolute; inset: -12px -16px; }
+```
+
+Now passes WCAG 2.5.8 (24 × 24 minimum) and the 44 × 44 comfort target.
+Affects `blog-post.html` and the five `resources-*.html` pages.
+
+### 10.2 — "PARTNERSHIPS" broke mid-word on mobile
+
+`.page-title` bottomed out at a fixed 34px, and "PARTNERSHIPS" is a single
+unbreakable word needing ~359px (including its trailing letter-spacing) against
+341px of available room at 375px wide — so it wrapped to "PARTNERSHIP / S".
+
+Below 600px the title now scales with the viewport instead:
+
+```css
+.page-title            { font-size: min(34px, calc(8.27vw - 1.65px)); }
+.page-header--sub .page-title { font-size: min(26px, calc(7.3vw - 0.6px)); }
+```
+
+`min()` means **nothing changes until the text would actually overflow** — at
+480px and above the size is identical to before, and desktop is untouched. At
+375px the title renders at ~29px on one line with the rule beside it.
+
+### 10.3 — "Meet the team" now shows two per row on mobile
+
+Was one full-width tile below 520px; now two columns, with the portrait moving
+above the name so both fit a half-width column.
+
+```css
+@media (max-width: 520px) {
+  .team-grid   { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+  .team-member { grid-template-columns: 1fr; gap: 12px;
+                 align-items: start; align-content: start; }
+}
+```
+
+`align-content: start` matters: cards in a row stretch to the tallest, and
+without it the spare height is shared between the photo and text rows, so a
+one-line role ("Co-Founder") sat lower than a two-line one ("Co-Founder &
+Advisor") and the names stopped lining up. Verified aligned across all 7 rows.
+
+### 10.4 — Dark mode locked off
+
+Samsung Internet (and Chrome's "auto dark theme") were algorithmically
+inverting the palette, which breaks the gradient and the black bands. The site
+now declares that it only supports light:
+
+- `color-scheme: only light` on `:root` in `tokens.css`, repeated on `html` in
+  `base.css` for browsers that only read it on the root element;
+- `<meta name="color-scheme" content="light">` in the `<head>` of all 16 pages,
+  so the signal arrives before CSS loads and there is no flash of inverted colour.
+
+Confirmed: with the OS set to dark **and** the browser forced to a dark colour
+scheme, every page still renders the light palette unchanged.
+
+There are no `prefers-color-scheme` rules anywhere in the stylesheets, and the
+comment in `tokens.css` warns against adding one unless a real dark palette is
+designed.
+
+### Re-verified after these changes
+
+- Page heights vs the YBA-2 designs: **identical to §8** — no desktop regression.
+- Horizontal overflow, 14 pages × 9 widths (1440→320): **all zero**.
+
+**Reverse:** `git checkout 3c98e61 -- assets/css '*.html'`
+
+---
+
+## 11. Mobile header and menu redesign (24 Aug 2026)
+
+Rebuilt from two supplied mobile designs (a 390 × 844 artboard exported at 2x).
+Applies below the 1024px nav breakpoint — **desktop is untouched**, and the
+verification table in §8 re-runs to exactly the same numbers.
+
+### 11.1 — Logo drops its strapline
+
+Below 1024px the logo is the Y-B—A mark alone, without "YOUNG BUSINESS
+ANALYSTS". New asset `assets/img/yba-logo-mark.svg` (viewBox 0 0 191 32),
+built from the first six drawn elements of the original logo.
+
+The mark's `B—A` dash was two abutting rectangles; under the CSS invert used
+for the open state the seam showed as a hairline, so they are merged into one.
+The original `yba-logo.svg` is untouched.
+
+Markup now carries **both** images with CSS showing one:
+
+```html
+<img class="site-logo__full" src="assets/img/yba-logo.svg"      width="191" height="50">
+<img class="site-logo__mark" src="assets/img/yba-logo-mark.svg" width="191" height="32">
+```
+
+This was first built with `<picture>` + a `media` source, which **caused a real
+4px desktop regression**: a `<picture>` resolves its source at first layout, so
+in an iframe sized after parsing it picked the mobile mark at 1440px and the
+header measured 166px instead of 170px. Two images toggled by a media query
+are deterministic. Worth remembering.
+
+### 11.2 — Header
+
+| | Before | After |
+|---|---|---|
+| Logo | full lockup, 150px | **mark only, 152px** |
+| Hamburger | 46 × 46 solid black box, white bars | **bare icon** — three 24 × 2px black rules, no box |
+| Header padding | 60px | **16px** (puts the logo top at 25px, as designed) |
+
+### 11.3 — Menu
+
+Was a drop-down panel inset from the gutters; now a **full-screen black
+overlay**:
+
+- Logo stays visible top-left and inverts to white (`filter: invert(1)` — the
+  mark is solid black, so this gives exactly the white version).
+- The hamburger becomes a bare white **×** in place, above the panel.
+- Every destination is plain white text at 20px on a 50px pitch, first item
+  106px from the top.
+- **"Join for free" is now just another item in the list**, not an inverted
+  button — the button styling is stripped inside the panel.
+- The page behind the panel is scroll-locked while it is open.
+- Tapping any item closes the panel.
+
+New tokens in `tokens.css`: `--logo-width-mobile: 152px`,
+`--header-pad-y-mobile: 16px`, `--fs-nav-mobile: 20px`.
+
+`main.js` now routes every open/close through one `setOpen()` helper, which
+also sets `data-nav-open` on `<body>` — that flag drives the white logo and the
+scroll lock from CSS.
+
+### 11.4 — Estimated values
+
+The designs were supplied as images, not Figma exports, so these were read off
+the artboard rather than measured exactly. All are single-token changes:
+
+| Value | Used | How it was derived |
+|---|---|---|
+| Menu item size | **20px** | text-width ratio suggested 19–20px; 20px is the existing `--fs-lead` |
+| Item pitch | **50px** | measured 100px at 2x |
+| First item offset | **106px** | measured cap-top 126px at 1x, less the line-box offset |
+| Logo width | **152px** | measured 305px at 2x |
+| Header padding | **16px** | derived so the logo top lands at the measured 25px |
+
+### 11.5 — Re-verified
+
+- Page heights vs the YBA-2 designs: **identical to §8** — no desktop regression.
+- Horizontal overflow, 14 pages × 9 widths: **all zero**.
+- Open/close, Escape, resize-to-desktop, close-on-tap, scroll lock, and the
+  current-page marker all behave correctly, on both phone and tablet widths.
+
+**Reverse:** `git checkout 3c98e61 -- assets/css assets/js '*.html' && rm assets/img/yba-logo-mark.svg`

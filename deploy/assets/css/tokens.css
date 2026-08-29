@@ -10,6 +10,16 @@
 
 :root {
   /* ---------------------------------------------------------------------
+     COLOUR SCHEME
+     ---------------------------------------------------------------------
+     The YBA palette is light-only by design. "only light" tells the browser
+     this page does not support a dark rendering, which stops Samsung Internet
+     and Chrome's auto dark theme from algorithmically inverting the colours.
+     Do not add a prefers-color-scheme block unless a real dark palette is
+     designed — a forced inversion breaks the gradient and the black bands. */
+  color-scheme: only light;
+
+  /* ---------------------------------------------------------------------
      BRAND COLOURS
      --------------------------------------------------------------------- */
   --c-black: #000000;         /* text, buttons, footer, the header rule    */
@@ -110,6 +120,13 @@
   --logo-width: 191px;      /* the Y-B—A lockup, as drawn in the SVG     */
   --header-pad-y: 60px;     /* space above and below the logo            */
   --footer-pad-y: 30px;
+
+  /* Mobile header + menu (below the 1024px nav breakpoint). The logo drops
+     its strapline there, so it is the 191x32 mark rather than the 191x50
+     lockup. Values measured from the supplied mobile designs. */
+  --logo-width-mobile: 152px;
+  --header-pad-y-mobile: 16px;
+  --fs-nav-mobile: 20px;
 
   --underline-weight: 2px;  /* the rule under inline "read more" links   */
 }

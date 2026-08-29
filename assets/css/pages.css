@@ -55,9 +55,19 @@
 }
 
 .page-header__back {
+  position: relative;
   display: inline-block;
   margin-bottom: 13px;
   font-size: var(--fs-sm);
+}
+
+/* The word "Back" is only about 35x20px — too small to tap reliably on a
+   phone. This invisible box extends the tap target to roughly 67x44px
+   without moving the text or its underline by a single pixel. */
+.page-header__back::after {
+  content: "";
+  position: absolute;
+  inset: -12px -16px;
 }
 
 .page-header--sub .page-title {
@@ -280,7 +290,23 @@
 }
 
 @media (max-width: 520px) {
-  .team-grid { grid-template-columns: 1fr; }
+  /* Two members per row rather than one full-width tile. At this width the
+     portrait sits above the name instead of beside it, so both fit a
+     half-width column comfortably. Desktop is unaffected. */
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+
+  .team-member {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
+    /* Cards in a row stretch to match the tallest. Without this, the spare
+       height is shared between the photo and text rows, so a one-line role
+       sits lower than a two-line one and the names stop lining up. */
+    align-content: start;
+  }
 }
 
 /* --------------------------------------------------------------------------

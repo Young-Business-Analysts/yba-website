@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
   <title>Join for free — Young Business Analysts</title>
   <meta name="description" content="Join the Young Business Analysts LinkedIn community — free for anyone building a career in business analysis.">
 
@@ -24,7 +25,10 @@
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="site-logo" href="index.html" aria-label="Young Business Analysts — home">
-        <img src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+        <!-- Below the nav breakpoint the strapline is dropped, as designed.
+             CSS shows exactly one of these two. -->
+        <img class="site-logo__full" src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+        <img class="site-logo__mark" src="assets/img/yba-logo-mark.svg" alt="" width="191" height="32">
       </a>
 
       <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">

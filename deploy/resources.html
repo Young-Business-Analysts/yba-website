@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
   <title>Resources — Young Business Analysts</title>
   <meta name="description" content="Certifications, publications, awards, podcasts and events to help you sharpen your business analysis skills.">
 
@@ -24,7 +25,10 @@
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="site-logo" href="index.html" aria-label="Young Business Analysts — home">
-        <img src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+        <!-- Below the nav breakpoint the strapline is dropped, as designed.
+             CSS shows exactly one of these two. -->
+        <img class="site-logo__full" src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+        <img class="site-logo__mark" src="assets/img/yba-logo-mark.svg" alt="" width="191" height="32">
       </a>
 
       <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
@@ -35,7 +39,8 @@
       <nav class="site-nav" id="site-nav" data-nav aria-label="Main">
         <ul class="site-nav__list">
           <li><a class="site-nav__link" href="about.html">About us</a></li>
-          <li><a class="site-nav__link" href="get-involved.html">Get involved</a></li>
+          <li><a class="site-nav__link" href="volunteer.html">Volunteer</a></li>
+          <li><a class="site-nav__link" href="partnerships.html">Partnerships</a></li>
           <li><a class="site-nav__link" href="resources.html" aria-current="page">Resources</a></li>
           <li><a class="site-nav__link" href="blog.html">Blog: A to B</a></li>
         </ul>
@@ -69,7 +74,9 @@
 
       <ul class="grid-4">
           <li class="card">
-            <div class="card__media card__media--empty" role="img" aria-label="Placeholder image"></div>
+            <div class="card__media">
+              <img src="assets/img/resource-certifications.jpg" alt="A BCS International Diploma in Business Analysis certificate" width="312" height="170">
+            </div>
             <div class="card__body">
               <h2 class="card-title card__title">Certifications</h2>
               <p class="card__text">Professional certifications help to build credibility and advance your career as a BA. Explore industry-recognised credentials to support your development.</p>
@@ -77,7 +84,9 @@
             </div>
           </li>
           <li class="card">
-            <div class="card__media card__media--empty" role="img" aria-label="Placeholder image"></div>
+            <div class="card__media">
+              <img src="assets/img/resource-publications.jpg" alt="The AssistKD Business Analysis Toolkit on a laptop screen" width="312" height="170">
+            </div>
             <div class="card__body">
               <h2 class="card-title card__title">Publications</h2>
               <p class="card__text">Discover books, guides and insights from across the BA profession.</p>
@@ -85,7 +94,9 @@
             </div>
           </li>
           <li class="card">
-            <div class="card__media card__media--empty" role="img" aria-label="Placeholder image"></div>
+            <div class="card__media">
+              <img src="assets/img/resource-awards.jpg" alt="Two YBA members receiving an award on stage" width="312" height="170">
+            </div>
             <div class="card__body">
               <h2 class="card-title card__title">Awards</h2>
               <p class="card__text">Celebrating excellence and recognising standout work in the BA community.</p>
@@ -93,15 +104,19 @@
             </div>
           </li>
           <li class="card">
-            <div class="card__media card__media--empty" role="img" aria-label="Placeholder image"></div>
+            <div class="card__media">
+              <img src="assets/img/resource-podcasts.jpg" alt="An episode of the BA Brew podcast on a laptop screen" width="312" height="170">
+            </div>
             <div class="card__body">
               <h2 class="card-title card__title">Podcasts</h2>
               <p class="card__text">Listen to conversations, stories and ideas from voices across the industry.</p>
-              <a class="link card__link" href="resources-podcasts.html">Lorem ipsum</a>
+              <a class="link card__link" href="resources-podcasts.html">Podcasts</a>
             </div>
           </li>
           <li class="card">
-            <div class="card__media card__media--empty" role="img" aria-label="Placeholder image"></div>
+            <div class="card__media">
+              <img src="assets/img/resource-events.jpg" alt="YBA members at a conference stand" width="312" height="170">
+            </div>
             <div class="card__body">
               <h2 class="card-title card__title">Events</h2>
               <p class="card__text">Getting involved in conferences and events is a great way for young BAs to connect, learn and grow. Explore some of the key events you can be part of.</p>
@@ -109,7 +124,9 @@
             </div>
           </li>
           <li class="card">
-            <div class="card__media card__media--empty" role="img" aria-label="Placeholder image"></div>
+            <div class="card__media">
+              <img src="assets/img/resource-blog.jpg" alt="A YBA blog post open on a laptop screen" width="312" height="170">
+            </div>
             <div class="card__body">
               <h2 class="card-title card__title">Blog: A to B</h2>
               <p class="card__text">Latest news, updates and opportunities from the YBA community.</p>
@@ -123,7 +140,7 @@
     <section class="cta-band">
       <div class="container">
         <h2 class="section-title cta-band__title">Become a member</h2>
-        <p class="cta-band__text">Join a growing network of young business analysts shaping the future of the industry.</p>
+        <p class="cta-band__text">Join our growing network of young business analysts shaping the future of the industry.</p>
         <a class="btn" href="join.html">Join for free</a>
       </div>
     </section>
@@ -137,7 +154,7 @@
           <img src="assets/img/yba-logo-white.svg" alt="" width="191" height="50">
         </a>
         <p class="site-footer__legal">
-          &copy; 2024 Young Business Analysts. Designed by
+          &copy; 2026 Young Business Analysts. Designed by
           <!-- TODO: add the designer's portfolio or LinkedIn URL -->
           <a class="link-plain" href="#">Deborah Garfen</a>
         </p>
@@ -145,24 +162,21 @@
 
       <nav class="site-footer__nav" aria-label="Footer">
         <div class="site-footer__col">
-          <h2 class="site-footer__heading">Company</h2>
           <ul class="site-footer__list">
             <li><a href="about.html">About us</a></li>
             <!-- TODO: add the YBA contact address or contact page -->
             <li><a href="#">Contact us</a></li>
-            <!-- TODO: add the YBA LinkedIn URL -->
-            <li><a href="#">LinkedIn</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
             <li><a href="privacy.html">Privacy</a></li>
           </ul>
         </div>
 
         <div class="site-footer__col">
-          <h2 class="site-footer__heading">Support</h2>
           <ul class="site-footer__list">
-            <li><a href="get-involved.html">Get involved</a></li>
-            <li><a href="resources.html">Resources</a></li>
+            <li><a href="volunteer.html">Volunteer</a></li>
             <li><a href="blog.html">Blog: A to B</a></li>
             <li><a href="join.html">Join for free</a></li>
+            <li><a href="resources.html">Resources</a></li>
           </ul>
         </div>
       </nav>

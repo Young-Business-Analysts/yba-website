@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
   <title>About us — Young Business Analysts</title>
   <meta name="description" content="Founded in 2020 by three young business analysts, YBA is a volunteer-led, non-profit community for under-35s.">
 
@@ -24,7 +25,10 @@
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="site-logo" href="index.html" aria-label="Young Business Analysts — home">
-        <img src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+        <!-- Below the nav breakpoint the strapline is dropped, as designed.
+             CSS shows exactly one of these two. -->
+        <img class="site-logo__full" src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+        <img class="site-logo__mark" src="assets/img/yba-logo-mark.svg" alt="" width="191" height="32">
       </a>
 
       <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
@@ -35,7 +39,8 @@
       <nav class="site-nav" id="site-nav" data-nav aria-label="Main">
         <ul class="site-nav__list">
           <li><a class="site-nav__link" href="about.html" aria-current="page">About us</a></li>
-          <li><a class="site-nav__link" href="get-involved.html">Get involved</a></li>
+          <li><a class="site-nav__link" href="volunteer.html">Volunteer</a></li>
+          <li><a class="site-nav__link" href="partnerships.html">Partnerships</a></li>
           <li><a class="site-nav__link" href="resources.html">Resources</a></li>
           <li><a class="site-nav__link" href="blog.html">Blog: A to B</a></li>
         </ul>
@@ -97,8 +102,8 @@
         <h2 class="card-title partners__title">Working with</h2>
         <ul class="partners__list">
           <li><img src="assets/img/partner-assist.png" alt="Assist Knowledge Development" width="157" height="40"></li>
-          <li><img class="partner--tall" src="assets/img/partner-bcs.png" alt="BCS, The Chartered Institute for IT" width="80" height="100"></li>
           <li><img src="assets/img/partner-irmuk.png" alt="IRM UK" width="165" height="42"></li>
+          <li><img class="partner--tall" src="assets/img/partner-bcs.png" alt="BCS, The Chartered Institute for IT" width="80" height="100"></li>
           <li><img src="assets/img/partner-ba.png" alt="BA Life" width="99" height="40"></li>
           <li><img src="assets/img/partner-iiba.png" alt="International Institute of Business Analysis" width="238" height="40"></li>
         </ul>
@@ -114,8 +119,8 @@
         <div class="section-intro">
           <h2 class="section-title section-intro__title">Meet the team</h2>
           <p class="section-intro__text">
-            Our committed team of ambassadors brings together experience, enthusiasm and a shared
-            belief in helping young business analysts thrive.
+            Our committed team of volunteer Ambassadors brings together experience, enthusiasm and a
+            shared belief in helping young business analysts thrive.
           </p>
         </div>
 
@@ -124,14 +129,14 @@
             <div class="team-member__photo"><img src="assets/img/team-kay-hardy.jpg" alt="Kay Hardy" width="80" height="80"></div>
             <div>
               <p class="team-member__name">Kay Hardy</p>
-              <p class="team-member__role">Founder</p>
+              <p class="team-member__role">Co-Founder &amp; Advisor</p>
             </div>
           </li>
           <li class="team-member">
             <div class="team-member__photo"><img src="assets/img/team-lauren-howes.jpg" alt="Lauren Howes" width="80" height="80"></div>
             <div>
               <p class="team-member__name">Lauren Howes</p>
-              <p class="team-member__role">Founder</p>
+              <p class="team-member__role">Co-Founder</p>
             </div>
           </li>
           <li class="team-member">
@@ -142,105 +147,81 @@
             </div>
           </li>
           <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
+            <div class="team-member__photo"><img src="assets/img/team-ian-richards.jpg" alt="Ian Richards" width="80" height="80"></div>
             <div>
               <p class="team-member__name">Ian Richards</p>
               <p class="team-member__role">Advisor</p>
             </div>
           </li>
-
           <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Joanne Fahy</p>
-              <p class="team-member__role">Leadership</p>
-            </div>
-          </li>
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Helen Holder</p>
-              <p class="team-member__role">Leadership</p>
-            </div>
-          </li>
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Thando Jacobs</p>
-              <p class="team-member__role">Role</p>
-            </div>
-          </li>
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Bianca Christian</p>
-              <p class="team-member__role">Role</p>
-            </div>
-          </li>
-
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Bianca Christian</p>
-              <p class="team-member__role">Role</p>
-            </div>
-          </li>
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
+            <div class="team-member__photo"><img src="assets/img/team-daniel-grist.jpg" alt="Daniel Grist" width="80" height="80"></div>
             <div>
               <p class="team-member__name">Daniel Grist</p>
-              <p class="team-member__role">Role</p>
-            </div>
-          </li>
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/team-joe-haslam.jpg" alt="Joe Haslam" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Joe Haslam</p>
-              <p class="team-member__role">Role</p>
-            </div>
-          </li>
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Lauren Hutchinson</p>
-              <p class="team-member__role">Role</p>
-            </div>
-          </li>
-
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Matt Broadbent</p>
-              <p class="team-member__role">Role</p>
-            </div>
-          </li>
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Nicola Pinkney</p>
-              <p class="team-member__role">Role</p>
-            </div>
-          </li>
-          <li class="team-member">
-            <div class="team-member__photo"><img src="assets/img/placeholder.png" alt="" width="80" height="80"></div>
-            <div>
-              <p class="team-member__name">Vish Gupta</p>
-              <p class="team-member__role">Role</p>
+              <p class="team-member__role">Ambassador</p>
             </div>
           </li>
           <li class="team-member">
             <div class="team-member__photo"><img src="assets/img/team-deborah-garfen.jpg" alt="Deborah Garfen" width="80" height="80"></div>
             <div>
               <p class="team-member__name">Deborah Garfen</p>
-              <p class="team-member__role">Brand &amp; Design Lead</p>
+              <p class="team-member__role">Head of Brand &amp; Design</p>
+            </div>
+          </li>
+          <li class="team-member">
+            <div class="team-member__photo"><img src="assets/img/team-helen-holder.jpg" alt="Helen Holder" width="80" height="80"></div>
+            <div>
+              <p class="team-member__name">Helen Holder</p>
+              <p class="team-member__role">Advisor</p>
+            </div>
+          </li>
+          <li class="team-member">
+            <div class="team-member__photo"><img src="assets/img/team-joanne-fahy.jpg" alt="Joanne Fahy" width="80" height="80"></div>
+            <div>
+              <p class="team-member__name">Joanne Fahy</p>
+              <p class="team-member__role">Advisor</p>
+            </div>
+          </li>
+          <li class="team-member">
+            <div class="team-member__photo"><img src="assets/img/team-joseph-haslam.jpg" alt="Joseph Haslam" width="80" height="80"></div>
+            <div>
+              <p class="team-member__name">Joseph Haslam</p>
+              <p class="team-member__role">Ambassador</p>
+            </div>
+          </li>
+          <li class="team-member">
+            <div class="team-member__photo"><img src="assets/img/team-nicola-pinkney.jpg" alt="Nicola Pinkney" width="80" height="80"></div>
+            <div>
+              <p class="team-member__name">Nicola Pinkney</p>
+              <p class="team-member__role">Ambassador</p>
+            </div>
+          </li>
+          <li class="team-member">
+            <div class="team-member__photo"><img src="assets/img/team-thando-jacobs.jpg" alt="Thando Jacobs" width="80" height="80"></div>
+            <div>
+              <p class="team-member__name">Thando Jacobs</p>
+              <p class="team-member__role">Ambassador</p>
+            </div>
+          </li>
+          <li class="team-member">
+            <div class="team-member__photo"><img src="assets/img/team-tofu-oludare.jpg" alt="Tofu Oludare" width="80" height="80"></div>
+            <div>
+              <p class="team-member__name">Tofu Oludare</p>
+              <p class="team-member__role">Ambassador</p>
+            </div>
+          </li>
+          <li class="team-member">
+            <div class="team-member__photo"><img src="assets/img/team-vishal-gutpa.jpg" alt="Vishal Gutpa" width="80" height="80"></div>
+            <div>
+              <p class="team-member__name">Vishal Gutpa</p>
+              <p class="team-member__role">Ambassador</p>
             </div>
           </li>
         </ul>
 
         <div class="team-outro">
-          <p>We&rsquo;re always looking for driven volunteers to join our team and help shape the future of YBA.</p>
+          <p>We&rsquo;re always looking for driven Ambassadors to join our team and help shape the future of YBA.</p>
           <p class="team-outro__actions">
-            <a class="btn btn--lg" href="get-involved.html">Apply to volunteer</a>
+            <a class="btn btn--lg" href="volunteer.html">Apply to be an Ambassador</a>
           </p>
         </div>
       </div>
@@ -250,7 +231,7 @@
     <section class="cta-band">
       <div class="container">
         <h2 class="section-title cta-band__title">Become a member</h2>
-        <p class="cta-band__text">Join a growing network of young business analysts shaping the future of the industry.</p>
+        <p class="cta-band__text">Join our growing network of young business analysts shaping the future of the industry.</p>
         <a class="btn" href="join.html">Join for free</a>
       </div>
     </section>
@@ -264,7 +245,7 @@
           <img src="assets/img/yba-logo-white.svg" alt="" width="191" height="50">
         </a>
         <p class="site-footer__legal">
-          &copy; 2024 Young Business Analysts. Designed by
+          &copy; 2026 Young Business Analysts. Designed by
           <!-- TODO: add the designer's portfolio or LinkedIn URL -->
           <a class="link-plain" href="#">Deborah Garfen</a>
         </p>
@@ -272,24 +253,21 @@
 
       <nav class="site-footer__nav" aria-label="Footer">
         <div class="site-footer__col">
-          <h2 class="site-footer__heading">Company</h2>
           <ul class="site-footer__list">
             <li><a href="about.html">About us</a></li>
             <!-- TODO: add the YBA contact address or contact page -->
             <li><a href="#">Contact us</a></li>
-            <!-- TODO: add the YBA LinkedIn URL -->
-            <li><a href="#">LinkedIn</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
             <li><a href="privacy.html">Privacy</a></li>
           </ul>
         </div>
 
         <div class="site-footer__col">
-          <h2 class="site-footer__heading">Support</h2>
           <ul class="site-footer__list">
-            <li><a href="get-involved.html">Get involved</a></li>
-            <li><a href="resources.html">Resources</a></li>
+            <li><a href="volunteer.html">Volunteer</a></li>
             <li><a href="blog.html">Blog: A to B</a></li>
             <li><a href="join.html">Join for free</a></li>
+            <li><a href="resources.html">Resources</a></li>
           </ul>
         </div>
       </nav>

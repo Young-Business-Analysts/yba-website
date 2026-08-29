@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
   <title>Young Business Analysts — Young. Brave. Ambitious.</title>
-  <meta name="description" content="Programmes, mentorship and opportunities for the curious and the capable. YBA champions the next generation of business analysts.">
+  <meta name="description" content="Networking and opportunities for the curious and the capable. YBA champions the next generation of business analysts.">
 
   <link rel="icon" href="assets/img/yba-logo.svg" type="image/svg+xml">
 
@@ -30,7 +31,10 @@
     <header class="site-header">
       <div class="container site-header__inner">
         <a class="site-logo" href="index.html" aria-label="Young Business Analysts — home">
-          <img src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+          <!-- Below the nav breakpoint the strapline is dropped, as designed.
+               CSS shows exactly one of these two. -->
+          <img class="site-logo__full" src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+          <img class="site-logo__mark" src="assets/img/yba-logo-mark.svg" alt="" width="191" height="32">
         </a>
 
         <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
@@ -41,7 +45,8 @@
         <nav class="site-nav" id="site-nav" data-nav aria-label="Main">
           <ul class="site-nav__list">
             <li><a class="site-nav__link" href="about.html">About us</a></li>
-            <li><a class="site-nav__link" href="get-involved.html">Get involved</a></li>
+            <li><a class="site-nav__link" href="volunteer.html">Volunteer</a></li>
+            <li><a class="site-nav__link" href="partnerships.html">Partnerships</a></li>
             <li><a class="site-nav__link" href="resources.html">Resources</a></li>
             <li><a class="site-nav__link" href="blog.html">Blog: A to B</a></li>
           </ul>
@@ -63,7 +68,7 @@
       </h1>
 
       <p class="hero__text">
-        Programmes, mentorship and opportunities for the curious and the capable.<br>
+        Networking and opportunities for the curious and the capable.<br>
         We champion the next generation of business analysts.
       </p>
 
@@ -81,8 +86,8 @@
         <h2 class="card-title partners__title">Working with</h2>
         <ul class="partners__list">
           <li><img src="assets/img/partner-assist.png" alt="Assist Knowledge Development" width="157" height="40"></li>
-          <li><img class="partner--tall" src="assets/img/partner-bcs.png" alt="BCS, The Chartered Institute for IT" width="80" height="100"></li>
           <li><img src="assets/img/partner-irmuk.png" alt="IRM UK" width="165" height="42"></li>
+          <li><img class="partner--tall" src="assets/img/partner-bcs.png" alt="BCS, The Chartered Institute for IT" width="80" height="100"></li>
           <li><img src="assets/img/partner-ba.png" alt="BA Life" width="99" height="40"></li>
           <li><img src="assets/img/partner-iiba.png" alt="International Institute of Business Analysis" width="238" height="40"></li>
         </ul>
@@ -167,55 +172,36 @@
         <h2 class="section-title section-heading">Blog: A to B</h2>
 
         <ul class="grid-4">
-          <li>
-            <a class="post-card" href="blog-post.html">
-              <div class="post-card__media">
-                <img src="assets/img/placeholder.png" alt="" width="312" height="170">
-              </div>
-              <h3 class="post-card__title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</h3>
-              <p class="post-card__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua enim ad minim veniam.
-              </p>
-            </a>
+          <li class="post-card">
+            <h3 class="post-card__title"><a class="post-card__link" href="blog-post.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</a></h3>
+            <p class="post-card__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              ut labore et dolore magna aliqua enim ad minim veniam.
+            </p>
+            <a class="link post-card__more" href="blog-post.html">Lorem ipsum</a>
           </li>
-
-          <li>
-            <a class="post-card" href="blog-post.html">
-              <div class="post-card__media">
-                <img src="assets/img/placeholder.png" alt="" width="312" height="170">
-              </div>
-              <h3 class="post-card__title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</h3>
-              <p class="post-card__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </a>
+          <li class="post-card">
+            <h3 class="post-card__title"><a class="post-card__link" href="blog-post.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</a></h3>
+            <p class="post-card__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <a class="link post-card__more" href="blog-post.html">Lorem ipsum</a>
           </li>
-
-          <li>
-            <a class="post-card" href="blog-post.html">
-              <div class="post-card__media">
-                <img src="assets/img/placeholder.png" alt="" width="312" height="170">
-              </div>
-              <h3 class="post-card__title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</h3>
-              <p class="post-card__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua enim ad minim veniam.
-              </p>
-            </a>
+          <li class="post-card">
+            <h3 class="post-card__title"><a class="post-card__link" href="blog-post.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</a></h3>
+            <p class="post-card__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              ut labore et dolore magna aliqua enim ad minim veniam.
+            </p>
+            <a class="link post-card__more" href="blog-post.html">Lorem ipsum</a>
           </li>
-
-          <li>
-            <a class="post-card" href="blog-post.html">
-              <div class="post-card__media">
-                <img src="assets/img/placeholder.png" alt="" width="312" height="170">
-              </div>
-              <h3 class="post-card__title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
-              <p class="post-card__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua enim ad minim veniam.
-              </p>
-            </a>
+          <li class="post-card">
+            <h3 class="post-card__title"><a class="post-card__link" href="blog-post.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></h3>
+            <p class="post-card__text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              ut labore et dolore magna aliqua enim ad minim veniam.
+            </p>
+            <a class="link post-card__more" href="blog-post.html">Lorem ipsum</a>
           </li>
         </ul>
       </div>
@@ -225,7 +211,7 @@
     <section class="cta-band">
       <div class="container">
         <h2 class="section-title cta-band__title">Become a member</h2>
-        <p class="cta-band__text">Join a growing network of young business analysts shaping the future of the industry.</p>
+        <p class="cta-band__text">Join our growing network of young business analysts shaping the future of the industry.</p>
         <a class="btn" href="join.html">Join for free</a>
       </div>
     </section>
@@ -239,7 +225,7 @@
           <img src="assets/img/yba-logo-white.svg" alt="" width="191" height="50">
         </a>
         <p class="site-footer__legal">
-          &copy; 2024 Young Business Analysts. Designed by
+          &copy; 2026 Young Business Analysts. Designed by
           <!-- TODO: add the designer's portfolio or LinkedIn URL -->
           <a class="link-plain" href="#">Deborah Garfen</a>
         </p>
@@ -247,24 +233,21 @@
 
       <nav class="site-footer__nav" aria-label="Footer">
         <div class="site-footer__col">
-          <h2 class="site-footer__heading">Company</h2>
           <ul class="site-footer__list">
             <li><a href="about.html">About us</a></li>
             <!-- TODO: add the YBA contact address or contact page -->
             <li><a href="#">Contact us</a></li>
-            <!-- TODO: add the YBA LinkedIn URL -->
-            <li><a href="#">LinkedIn</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
             <li><a href="privacy.html">Privacy</a></li>
           </ul>
         </div>
 
         <div class="site-footer__col">
-          <h2 class="site-footer__heading">Support</h2>
           <ul class="site-footer__list">
-            <li><a href="get-involved.html">Get involved</a></li>
-            <li><a href="resources.html">Resources</a></li>
+            <li><a href="volunteer.html">Volunteer</a></li>
             <li><a href="blog.html">Blog: A to B</a></li>
             <li><a href="join.html">Join for free</a></li>
+            <li><a href="resources.html">Resources</a></li>
           </ul>
         </div>
       </nav>

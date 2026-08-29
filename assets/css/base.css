@@ -45,6 +45,9 @@ select {
 /* Anything that scrolls sideways does so inside its own box, never the page. */
 html {
   overflow-x: hidden;
+  /* Repeated from tokens.css so the declaration is on the root element for
+     browsers that only read it there. See the note in tokens.css. */
+  color-scheme: only light;
 }
 
 /* --------------------------------------------------------------------------
@@ -313,6 +316,18 @@ main > .band:first-child {
     --space-2xl: 48px;
     --rule-height: 8px;
     --rule-start: 32px;
+  }
+
+  /* A long single-word title ("PARTNERSHIPS") cannot hyphenate, so below
+     roughly 430px it was breaking mid-word. These scale the title with the
+     viewport instead. min() means nothing changes until the text would
+     actually overflow — at 480px and above the size is exactly as before. */
+  .page-title {
+    font-size: min(34px, calc(8.27vw - 1.65px));
+  }
+
+  .page-header--sub .page-title {
+    font-size: min(26px, calc(7.3vw - 0.6px));
   }
 
   .grid-4 {

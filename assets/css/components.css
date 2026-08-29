@@ -36,6 +36,14 @@
   height: auto;
 }
 
+/* Exactly one of the two logo files is shown; the mobile breakpoint below
+   swaps them. Toggling two <img>s rather than using <picture> keeps the
+   choice deterministic — a <picture> resolves its source at first layout,
+   which can pick the wrong one if the element is sized after it is parsed. */
+.site-logo__mark {
+  display: none;
+}
+
 /* --- Navigation ---------------------------------------------------------- */
 
 .site-nav {
@@ -70,13 +78,16 @@
 
 /* --- Mobile menu button -------------------------------------------------- */
 
+/* A bare icon, not a filled box: three black rules that fold into a cross.
+   The button is 44x44 for a comfortable tap target, but only the 24px icon
+   inside it is visible. */
 .nav-toggle {
   display: none;          /* shown at the mobile breakpoint below */
   flex: none;
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   padding: 0;
-  background: var(--c-black);
+  background: transparent;
   border: 0;
   cursor: pointer;
 }
@@ -85,10 +96,10 @@
 .nav-toggle__bar::before,
 .nav-toggle__bar::after {
   display: block;
-  width: 22px;
+  width: 24px;
   height: 2px;
-  background: var(--c-white);
-  transition: transform 200ms ease, opacity 200ms ease;
+  background: var(--c-black);
+  transition: transform 200ms ease, background-color 200ms ease;
 }
 
 .nav-toggle__bar {
@@ -106,9 +117,15 @@
 .nav-toggle__bar::before { top: -7px; }
 .nav-toggle__bar::after  { top: 7px; }
 
-/* Open state: the three bars become a cross. */
+/* Open: the middle rule disappears and the outer two cross, over the black
+   panel — so they flip to white. */
 .nav-toggle[aria-expanded="true"] .nav-toggle__bar {
   background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar::before,
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar::after {
+  background: var(--c-white);
 }
 
 .nav-toggle[aria-expanded="true"] .nav-toggle__bar::before {
@@ -549,24 +566,54 @@
 }
 
 @media (max-width: 1024px) {
-  /* Collapse the navigation into a menu button + drop-down panel. */
+  /* ------------------------------------------------------------------
+     MOBILE HEADER + MENU
+     ------------------------------------------------------------------
+     Header: strapline-free logo (swapped in the markup by <picture>) with a
+     bare hamburger opposite it. Menu: a full-screen black panel listing every
+     destination as plain white text — "Join for free" included, so it reads
+     as one list rather than a list plus a button.
+     ------------------------------------------------------------------ */
+
+  .site-header {
+    padding-block: var(--header-pad-y-mobile);
+  }
+
+  .site-logo {
+    width: var(--logo-width-mobile);
+    /* Above the panel, so it stays visible while the menu is open. */
+    position: relative;
+    z-index: 40;
+  }
+
+  .site-logo__full { display: none; }
+  .site-logo__mark { display: block; }
+
   .nav-toggle {
     display: block;
     order: 2;
+    /* Sits above the panel so it becomes the close control. */
+    position: relative;
+    z-index: 40;
+    margin-right: -10px;   /* optical: aligns the icon, not the tap box */
   }
 
+  /* The full-screen panel. Sits under the header row, so the logo and the
+     close icon stay visible on top of it. */
   .site-nav {
-    position: absolute;
-    top: 100%;
-    right: var(--gutter);
-    left: var(--gutter);
+    position: fixed;
+    inset: 0;
     z-index: 30;
     flex-direction: column;
     align-items: stretch;
+    justify-content: flex-start;
     gap: 0;
-    padding: var(--space-sm);
+    /* Clears the 76px header row (16 + 44 + 16), then the designed 30px gap
+       before the first item. */
+    padding: calc(var(--header-pad-y-mobile) * 2 + 44px + 30px) var(--gutter) var(--space-2xl);
     background: var(--c-black);
-    /* Hidden until the button is pressed. */
+    overflow-y: auto;
+    overscroll-behavior: contain;
     display: none;
   }
 
@@ -580,27 +627,51 @@
     gap: 0;
   }
 
-  .site-nav__link {
+  .site-nav__link,
+  .site-nav .btn {
     display: block;
-    padding: 14px var(--space-sm);
+    /* 50px pitch: a 26px line box plus 12px above and below. */
+    padding-block: 12px;
+    padding-inline: 0;
+    font-size: var(--fs-nav-mobile);
+    font-weight: var(--fw-book);
+    line-height: 1.3;
     color: var(--c-white);
+    white-space: normal;
+  }
+
+  /* In the panel "Join for free" is just another item in the list. */
+  .site-nav .btn {
+    min-height: 0;
+    margin: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  .site-nav .btn:hover,
+  .site-nav__link:hover {
+    background: transparent;
+    color: var(--c-white);
+    opacity: 0.6;
   }
 
   .site-nav__link[aria-current="page"] {
     border-bottom: 0;
-    background: rgba(255, 255, 255, 0.12);
+    padding-bottom: 12px;
+    font-weight: var(--fw-medium);
   }
 
-  .site-nav .btn {
-    margin-top: var(--space-sm);
-    background: var(--c-white);
-    color: var(--c-black);
-    border-color: var(--c-white);
+  /* The logo is black on white when closed, white on black when open. The
+     mark is solid black, so inverting it gives exactly the white version. */
+  body[data-nav-open="true"] .site-logo img {
+    filter: invert(1);
   }
 
-  .site-nav .btn:hover {
-    background: transparent;
-    color: var(--c-white);
+  /* Stop the page behind the panel from scrolling. */
+  body[data-nav-open="true"] {
+    overflow: hidden;
   }
 
   .site-header__inner {
