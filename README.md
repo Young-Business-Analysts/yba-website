@@ -195,4 +195,4 @@ The site was updated in August 2026 to the **YBA-2** designs. Every change made
 in that pass — and how to reverse each one — is recorded in
 `CHANGELOG-YBA2.md`.
 
-Pre-Prod development branch
+Pre-Prod development branch for Netlify
