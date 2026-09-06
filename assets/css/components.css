@@ -523,13 +523,19 @@
   margin: 0;
 }
 
-/* Each logo was cropped from the design at its exact size, so at full width
-   they are simply drawn as-is — no scaling, which is what keeps this row
-   pixel-identical to the design. They are scaled down only on smaller
-   screens, in the media queries at the foot of this file. */
+/* The logo files are 4x retina exports, so they are capped to the design's
+   cap height rather than drawn at intrinsic size — 40px for the wordmarks,
+   100px for the taller BCS shield. Width follows from the aspect ratio, which
+   reproduces the design widths (157, 165, 99, 238). They are scaled down
+   further on smaller screens, in the media queries at the foot of this file. */
 .partners__list img {
   width: auto;
   height: auto;
+  max-height: 40px;
+}
+
+.partners__list .partner--tall {
+  max-height: 100px;
 }
 
 /* --------------------------------------------------------------------------
@@ -542,14 +548,12 @@
   margin: 0;
 }
 
+/* The share-*.png artwork is a 4x export that already includes the black
+   square, so the anchor itself draws no background. */
 .share-list a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 40px;
   height: 40px;
-  background: var(--c-black);
-  color: var(--c-white);
   transition: opacity 150ms ease;
 }
 
@@ -557,10 +561,9 @@
   opacity: 0.75;
 }
 
-.share-list svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
+.share-list img {
+  width: 100%;
+  height: 100%;
 }
 
 /* --------------------------------------------------------------------------

@@ -7,7 +7,8 @@
  *   1. the mobile navigation toggle,
  *   2. a replay of the header-rule animation when the page is restored from
  *      the browser's back/forward cache (bfcache), so the line always plays,
- *   3. "copy link" on the blog article's share row.
+ *   3. the share row's network links, pointed at the current page URL,
+ *   4. "copy link" on the blog article's share row.
  *
  * The header-rule animation itself is pure CSS — see the "page header" section
  * of assets/css/components.css.
@@ -86,7 +87,32 @@
   });
 
   /* -----------------------------------------------------------------------
-     3. Share row — copy the current page link
+     3. Share row — point each network at the current page
+     -----------------------------------------------------------------------
+     The links ship with the bare intent URL so the markup carries no
+     hard-coded domain; here the page's own address is appended, which means
+     the same file works on localhost, the Netlify preview and the live site.
+     ----------------------------------------------------------------------- */
+
+  var shareLinks = document.querySelectorAll("[data-share]");
+
+  if (shareLinks.length) {
+    var pageUrl = encodeURIComponent(window.location.href);
+
+    var intents = {
+      linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=" + pageUrl,
+      facebook: "https://www.facebook.com/sharer/sharer.php?u=" + pageUrl,
+      x: "https://twitter.com/intent/tweet?url=" + pageUrl
+    };
+
+    shareLinks.forEach(function (link) {
+      var intent = intents[link.getAttribute("data-share")];
+      if (intent) link.href = intent;
+    });
+  }
+
+  /* -----------------------------------------------------------------------
+     4. Share row — copy the current page link
      ----------------------------------------------------------------------- */
 
   var copyLink = document.querySelector("[data-copy-link]");
