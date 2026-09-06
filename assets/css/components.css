@@ -212,7 +212,7 @@
   color: var(--c-white);
   font-family: var(--font-body);
   font-size: var(--fs-body);
-  font-weight: var(--fw-medium);
+  font-weight: 600 !important;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
@@ -316,6 +316,7 @@
 .post-card__link {
   color: inherit;
   text-decoration: none;
+  font-weight: var(--fw-medium);
 }
 
 .post-card__link:hover {
@@ -452,6 +453,7 @@
 .site-footer__legal {
   margin: 0;
   font-size: var(--fs-sm);
+  font-weight: var(--fw-book);
 }
 
 .site-footer__legal a {
@@ -485,6 +487,7 @@
   display: block;
   color: inherit;
   font-size: var(--fs-sm);
+  font-weight: var(--fw-book);
   line-height: 20px;
   text-decoration: none;
   transition: opacity 150ms ease;
@@ -697,8 +700,16 @@
     gap: var(--space-xl);
   }
 
-  .site-footer__brand { gap: var(--space-xl); }
-  .site-footer__nav { gap: var(--space-xl); }
+  /* On mobile, move the copyright line to the bottom of the footer */
+  .site-footer__brand {
+    gap: var(--space-xl);
+    order: 2;
+  }
+
+  .site-footer__nav {
+    gap: var(--space-xl);
+    order: 1;
+  }
   .site-footer__col { width: auto; flex: 1; }
 
   .media-row:not(.media-row--text) {

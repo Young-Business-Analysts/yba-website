@@ -32,6 +32,7 @@
 
 .hero__text {
   margin-top: 19px;
+  font-weight: var(--fw-book);
 }
 
 .hero__actions {

@@ -1,4 +1,40 @@
 /* ==========================================================================
+   GOTHAM WEB FONTS
+   ========================================================================== */
+
+@font-face {
+  font-family: "Gotham";
+  src: url("../fonts/gotham-book-webfont.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gotham";
+  src: url("../fonts/gotham-medium-webfont.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gotham";
+  src: url("../fonts/gotham-black-webfont.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gotham";
+  src: url("../fonts/gotham-ultra-webfont.woff2") format("woff2");
+  font-weight: 950;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
    BASE — reset, typography and layout primitives
    ==========================================================================
    Loaded after tokens.css. Sets up sensible defaults and the handful of
@@ -135,9 +171,21 @@ body:not(.is-home) {
   --ls-label: var(--ls-body);
 }
 
+/* Emphasized text — on mobile, use medium weight for visual emphasis */
+strong {
+  font-weight: var(--fw-book);
+}
+
+@media (max-width: 840px) {
+  strong {
+    font-weight: var(--fw-medium);
+  }
+}
+
 /* Page title / hero — 72px at 1440, down to 34px on a small phone. */
 .page-title {
   font-size: clamp(34px, 5vw, var(--fs-display));
+  font-weight: var(--fw-ultra);
 }
 
 /* Section heading — 42px at 1440. Also used for the sub-page titles. */
@@ -145,6 +193,7 @@ body:not(.is-home) {
   font-size: clamp(26px, 2.9vw, var(--fs-h2));
   line-height: var(--lh-heading);
   letter-spacing: var(--ls-heading);
+  font-weight: var(--fw-ultra);
 }
 
 /* Card title / small label — 24px at 1440.
@@ -156,6 +205,7 @@ body:not(.is-home) {
   font-size: clamp(16px, calc(2.2vw - 7px), var(--fs-h4));
   line-height: 1.17;
   letter-spacing: var(--ls-label);
+  font-weight: var(--fw-ultra);
 }
 
 /* Body copy variants. */

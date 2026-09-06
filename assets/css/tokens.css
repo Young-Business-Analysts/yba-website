@@ -50,9 +50,10 @@
   --font-display: "Gotham", "Montserrat", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Gotham", "Montserrat", "Helvetica Neue", Arial, sans-serif;
 
-  --fw-book: 400;    /* body copy                       (Gotham Book)  */
+  --fw-book: 400;    /* body copy                       (Gotham Book)   */
   --fw-medium: 600;  /* nav, buttons, labels, emphasis   (Gotham Medium) */
-  --fw-black: 900;   /* all display headings             (Gotham Black)  */
+  --fw-black: 900;   /* display headings                 (Gotham Black)  */
+  --fw-ultra: 950;   /* hero titles, emphasis            (Gotham Ultra)  */
 
   /* ---------------------------------------------------------------------
      TYPE SCALE
