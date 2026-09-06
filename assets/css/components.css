@@ -356,6 +356,10 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
+/* The logo artwork carries its own background, so the thumb box itself is
+   transparent — no off-white square behind Partnerships, Certifications or
+   Podcasts. Re-add `background: var(--c-surface)` if a future media row uses
+   a bare image that needs a panel behind it. */
 .media-row__thumb {
   width: 145px;
   height: 145px;
@@ -363,7 +367,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: var(--c-surface);
+  background: transparent;
 }
 
 .media-row__thumb img {
