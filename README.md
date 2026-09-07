@@ -137,17 +137,22 @@ These are marked with `<!-- TODO -->` comments in the HTML:
 
 | Where | What is needed |
 |---|---|
-| Footer, every page | A **Contact us** address or page |
-| Footer, every page | Deborah Garfen's portfolio/LinkedIn URL for the design credit |
 | `join.html` | The real sign-up destination for the "Join for free" button |
 | `volunteer.html` | The Ambassador application form URL |
-| `partnerships.html` | Partnership enquiries address, and each partner's website |
-| Resource sub-pages | Destination URLs for each entry (labels are now final) |
-| `privacy.html` | The `[Insert email address]` placeholder in section 11 |
+| `partnerships.html` | Partnership enquiries address, and each partner's website (5) |
+| Resource sub-pages | Destination URLs for each entry, 17 in all (labels are final) |
+| Every blog post | The publication date — `datetime` attribute and visible text |
+| Every blog post | Instagram share target; the platform has no web share URL, so these point at the YBA profile, which is not yet set |
+| 3 blog posts | Artwork for 7 figures, left as commented-out `<figure>` blocks |
+| `blog-ba-skills-to-product.html` | A headshot for Soni Kaur (using `placeholder.png`) |
 
-The blog pages and the homepage blog strip use the design's placeholder copy
-("Lorem ipsum…"), exactly as the prototype does. Replace them as real posts are
-written — the cards are text-only now, so there is no image to supply.
+Resolved: the footer **Contact us** address and the Deborah Garfen design
+credit are now live on every page, and `privacy.html` carries the real contact
+address in both section 1 and section 11.
+
+The blog now runs nine real posts built from the source documents in
+`../blog files/`. `blog-post.html` is the original dummy article; nothing links
+to it any more, and it is kept only as a template for writing the next post.
 
 ---
 
