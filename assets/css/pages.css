@@ -377,6 +377,14 @@
   object-fit: cover;
 }
 
+/* Posts with no named author are bylined to YBA and use the wordmark rather
+   than a headshot. It is far wider than the square box, so it is fitted
+   inside rather than cropped to fill. */
+.article__author-photo--mark img {
+  object-fit: contain;
+  padding: 10px;
+}
+
 .article__author-name {
   margin: 0;
   font-weight: var(--fw-medium);
