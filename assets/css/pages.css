@@ -385,6 +385,75 @@
   padding: 10px;
 }
 
+/* --------------------------------------------------------------------------
+   About the author — a disclosure, not a widget
+   --------------------------------------------------------------------------
+   Closed, this reads as a hairline rule with the byline sitting on it; the
+   only affordance is a small chevron. There is no panel, border radius or
+   fill, because nothing else on the site has one. Built on <details>, so it
+   opens with no JavaScript and the copy stays findable by in-page search.
+   -------------------------------------------------------------------------- */
+
+/* Sits where the plain byline sits, and keeps its 32px gap to the copy. */
+.author-note {
+  margin-bottom: 32px;
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+.author-note__summary {
+  display: flex;
+  align-items: center;
+  gap: 18px;                 /* matches .article__author */
+  padding: 18px 0;
+  cursor: pointer;
+  list-style: none;          /* Firefox */
+}
+
+/* Safari/Chrome draw their own triangle; the chevron replaces it. */
+.author-note__summary::-webkit-details-marker {
+  display: none;
+}
+
+.author-note__summary:focus-visible {
+  outline: 2px solid var(--c-black);
+  outline-offset: 4px;
+}
+
+/* Two borders on a rotated square — a chevron with no extra asset. */
+.author-note__chevron {
+  flex: none;
+  margin-left: auto;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--c-black);
+  border-bottom: 2px solid var(--c-black);
+  transform: translateY(-3px) rotate(45deg);
+  transition: transform 200ms ease;
+}
+
+.author-note[open] .author-note__chevron {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.author-note__label {
+  margin: 0 0 2px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  line-height: 20px;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+}
+
+.author-note__body {
+  max-width: 940px;
+  padding-bottom: 26px;
+}
+
+.author-note__body > * + * {
+  margin-top: 22px;
+}
+
 .article__author-name {
   margin: 0;
   font-weight: var(--fw-medium);
