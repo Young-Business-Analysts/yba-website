@@ -561,6 +561,29 @@
   opacity: 0.75;
 }
 
+/* Copy link and the Instagram fallback set data-copied for two seconds. The
+   hidden label carries the wording for screen readers; this is the matching
+   visual cue — the button dims and a tick sits over the artwork. */
+.share-list a[data-copied] {
+  position: relative;
+}
+
+.share-list a[data-copied] img {
+  opacity: 0.25;
+}
+
+.share-list a[data-copied]::after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 14px;
+  width: 8px;
+  height: 14px;
+  border-right: 2px solid var(--c-white);
+  border-bottom: 2px solid var(--c-white);
+  transform: rotate(45deg);
+}
+
 .share-list img {
   width: 100%;
   height: 100%;

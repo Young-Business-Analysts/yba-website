@@ -7,6 +7,18 @@
   <title>My Journey from Apprentice to Senior Business Analyst &mdash; Blog: A to B &mdash; Young Business Analysts</title>
   <meta name="description" content="I am an accidental Business Analyst. My journey began in the trenches of IT (Information Technology) Support, where I honed my knack for problem-solving&hellip;">
 
+  <link rel="canonical" href="https://www.youngbusinessanalysts.org/blog-apprentice-to-senior.html">
+
+  <!-- Social preview. Without these a shared link renders as a bare URL;
+       LinkedIn, Facebook and X all read these tags when they scrape it. -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Young Business Analysts">
+  <meta property="og:title" content="My Journey from Apprentice to Senior Business Analyst">
+  <meta property="og:description" content="I am an accidental Business Analyst. My journey began in the trenches of IT (Information Technology) Support, where I honed my knack for problem-solving&hellip;">
+  <meta property="og:url" content="https://www.youngbusinessanalysts.org/blog-apprentice-to-senior.html">
+  <meta property="og:image" content="https://www.youngbusinessanalysts.org/assets/img/about-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="icon" href="assets/img/yba-logo.svg" type="image/svg+xml">
 
   <!-- Montserrat stands in for the brand font, Gotham, and is served from this
@@ -60,9 +72,7 @@
 
     <section class="container">
       <article class="article">
-        <!-- TODO: replace with the real publication date (both the datetime
-             attribute and the visible text). -->
-        <p class="article__date"><time datetime="0000-00-00">00.00.0000</time></p>
+        <p class="article__date"><time datetime="2026-09-09">09.09.2026</time></p>
 
         <p class="lead article__standfirst">I am an accidental Business Analyst. My journey began in the trenches of IT (Information Technology) Support, where I honed my knack for problem-solving and listening to users amidst the swathe of support tickets. One day, while discussing my work on an Enterprise Resource Planner (ERP) system implementation, my mentor remarked, “You know, you’re essentially a Business Analyst.” Initially, I laughed it off, thinking of stock markets and financial forecasts. However, I soon realised that I was not just solving IT issues; I was untangling business challenges, translating needs into solutions, and bridging the gap between what is and what could be.</p>
 
@@ -99,7 +109,7 @@
           </ul>
           <h2 class="card-title">Business Analyst</h2>
           <p>As I stepped up from being an Apprentice to a Business Analyst and moved from Internal to Consultancy. I no longer was assisting in the analysis, instead I was independently meeting with stakeholders and seeking direction from seniors were required. Around this time, and as I was more interested in what differentiated someone from a junior, midlevel or senior Business Analyst that my research led me to SFIA levels, something I am planning to post separately about. But effectively I found it to be not just about independent work, but also sharing knowledge with and influencing others around you, which is something I would encourage people at every level of their career do, but at this stage it becomes more of an actual requirement of the role.</p>
-          <p>My journey culminated in earning the <a href="https://www.linkedin.com/company/iiba/" target="_blank" rel="noopener noreferrer">IIBA</a> Certified Business Analyst Professional (CBAP) certification, a testament to my dedication to continuous learning.</p>
+          <p>My journey culminated in earning the <a href="https://www.linkedin.com/company/iiba/" target="_blank" rel="noopener">IIBA</a> Certified Business Analyst Professional (CBAP) certification, a testament to my dedication to continuous learning.</p>
           <h2 class="card-title">Becoming a Senior Business Analyst</h2>
           <p>In February 2024 I transitioned to my first ‘Senior Consultant’ role, a change that I had been working towards and pursuing, but what got me there, and what has it felt like so far.</p>
           <p>For me there have been 3 key parts that have helped my journey which are, continuous learning, collaboration and the BA mindset.</p>
@@ -107,8 +117,8 @@
           <p>Collaborating with diverse teams and stakeholders has enriched my skills. At the beginning of my career, I could learn so much about the fundamentals, and as I have matured in my career collaboration has stayed relevant but in a slightly different way, it has kept me reminded of best practices and ensured that I have considered the full BA toolkit available to me, as we so often fall into the trap of doing the same thing again.</p>
           <p>For me, being a Business Analyst has been about more than just my technical skills, in fact, I believe that the things that have helped me progress have been more in the BA ‘mindset’, soft skills such as curiosity, active listening and building trust have been the keys for me. The soft skills can be what differentiates a good BA that knows the techniques, to a great BA that can apply them suitably in an environment and work towards a high trust team.</p>
           <h2 class="card-title">The Future</h2>
-          <p>As a Senior Consultant with <a href="https://www.linkedin.com/company/consultcmc/" target="_blank" rel="noopener noreferrer">CMC Partnership Consultancy Ltd</a>, I now help public sector organisations streamline operations and implement products and services efficiently.</p>
-          <p>Looking ahead, I aim to deepen my collaborative efforts, mentor aspiring Business Analysts, and continue to contribute to the Business Analysis community, especially through <a href="https://www.linkedin.com/company/youngbusinessanalysts/" target="_blank" rel="noopener noreferrer">Young Business Analysts (YBA)</a> . I am excited to keep sharing my expertise and learning from my peers at CMC.</p>
+          <p>As a Senior Consultant with <a href="https://www.linkedin.com/company/consultcmc/" target="_blank" rel="noopener">CMC Partnership Consultancy Ltd</a>, I now help public sector organisations streamline operations and implement products and services efficiently.</p>
+          <p>Looking ahead, I aim to deepen my collaborative efforts, mentor aspiring Business Analysts, and continue to contribute to the Business Analysis community, especially through <a href="https://www.linkedin.com/company/youngbusinessanalysts/" target="_blank" rel="noopener">Young Business Analysts (YBA)</a> . I am excited to keep sharing my expertise and learning from my peers at CMC.</p>
           <p>Lookout for articles over the coming weeks on SFIA levels, Shu Ha Ri and the BA Toolkit</p>
         </div>
 
@@ -131,29 +141,31 @@
             </li>
             <li>
               <a href="https://www.linkedin.com/sharing/share-offsite/" data-share="linkedin"
-                 target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
+                 target="_blank" rel="noopener" aria-label="Share on LinkedIn">
                 <img src="assets/img/share-linkedin.png" alt="" width="40" height="40">
                 <span class="visually-hidden">Share on LinkedIn</span>
               </a>
             </li>
-            <!-- TODO: Instagram has no web share URL, so this points at the YBA
-                 profile instead. Add the handle, e.g. https://www.instagram.com/... -->
+            <!-- Instagram publishes no web share endpoint, so this one is driven
+                 by JS: the Web Share API where the browser has it (on a phone that
+                 opens the OS sheet, Instagram included), copy-to-clipboard
+                 otherwise. See assets/js/main.js. -->
             <li>
-              <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YBA on Instagram">
+              <a href="#" data-share-instagram aria-label="Share on Instagram">
                 <img src="assets/img/share-instagram.png" alt="" width="40" height="40">
-                <span class="visually-hidden">YBA on Instagram</span>
+                <span class="visually-hidden">Share on Instagram</span>
               </a>
             </li>
             <li>
               <a href="https://www.facebook.com/sharer/sharer.php" data-share="facebook"
-                 target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
+                 target="_blank" rel="noopener" aria-label="Share on Facebook">
                 <img src="assets/img/share-facebook.png" alt="" width="40" height="40">
                 <span class="visually-hidden">Share on Facebook</span>
               </a>
             </li>
             <li>
               <a href="https://twitter.com/intent/tweet" data-share="x"
-                 target="_blank" rel="noopener noreferrer" aria-label="Share on X">
+                 target="_blank" rel="noopener" aria-label="Share on X">
                 <img src="assets/img/share-x.png" alt="" width="40" height="40">
                 <span class="visually-hidden">Share on X</span>
               </a>
@@ -209,7 +221,7 @@
         </a>
         <p class="site-footer__legal">
           &copy; 2026 Young Business Analysts. Designed by
-          <a class="link-plain" href="https://www.deborahgarfen.co.uk">Deborah Garfen</a>
+          <a class="link-plain" href="https://www.deborahgarfen.co.uk" rel="noopener" target="_blank">Deborah Garfen</a>
         </p>
       </div>
 

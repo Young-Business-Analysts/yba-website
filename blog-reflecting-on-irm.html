@@ -7,6 +7,18 @@
   <title>Reflecting on My Experience at the IRM Business Analysis Conference &mdash; Blog: A to B &mdash; Young Business Analysts</title>
   <meta name="description" content="When I look back at the moments that have shaped my early career, the IRM Business Analysis Conference stands out every time. Three days surrounded by&hellip;">
 
+  <link rel="canonical" href="https://www.youngbusinessanalysts.org/blog-reflecting-on-irm.html">
+
+  <!-- Social preview. Without these a shared link renders as a bare URL;
+       LinkedIn, Facebook and X all read these tags when they scrape it. -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Young Business Analysts">
+  <meta property="og:title" content="Reflecting on My Experience at the IRM Business Analysis Conference">
+  <meta property="og:description" content="When I look back at the moments that have shaped my early career, the IRM Business Analysis Conference stands out every time. Three days surrounded by&hellip;">
+  <meta property="og:url" content="https://www.youngbusinessanalysts.org/blog-reflecting-on-irm.html">
+  <meta property="og:image" content="https://www.youngbusinessanalysts.org/assets/img/about-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="icon" href="assets/img/yba-logo.svg" type="image/svg+xml">
 
   <!-- Montserrat stands in for the brand font, Gotham, and is served from this
@@ -60,9 +72,7 @@
 
     <section class="container">
       <article class="article">
-        <!-- TODO: replace with the real publication date (both the datetime
-             attribute and the visible text). -->
-        <p class="article__date"><time datetime="0000-00-00">00.00.0000</time></p>
+        <p class="article__date"><time datetime="2026-09-09">09.09.2026</time></p>
 
         <p class="lead article__standfirst">When I look back at the moments that have shaped my early career, the IRM Business Analysis Conference stands out every time. Three days surrounded by people who understand both the excitement and the challenges of business analysis is hard to beat.</p>
 
@@ -119,7 +129,7 @@
           </figure>
           -->
           <h2 class="card-title">Looking Ahead to this Year</h2>
-          <p>As this year’s <a href="https://irmuk.co.uk/business-analysis-conference-europe/" target="_blank" rel="noopener noreferrer">IRM Business Analysis Conference</a> approaches, I’m really looking forward to another few days of learning, connection, and inspiration. I’m particularly excited about the topics surrounding AI in business analysis and defining business services, which are both highly relevant to the work I’m doing at the moment.</p>
+          <p>As this year’s <a href="https://irmuk.co.uk/business-analysis-conference-europe/" target="_blank" rel="noopener">IRM Business Analysis Conference</a> approaches, I’m really looking forward to another few days of learning, connection, and inspiration. I’m particularly excited about the topics surrounding AI in business analysis and defining business services, which are both highly relevant to the work I’m doing at the moment.</p>
           <p>The agenda is jam packed, so I’m hoping to come away with new tools, fresh insights, and ideas I can apply straight away. Each year, the conference leaves me re-energised, and I’m sure 2025 will be no different!</p>
         </div>
 
@@ -142,29 +152,31 @@
             </li>
             <li>
               <a href="https://www.linkedin.com/sharing/share-offsite/" data-share="linkedin"
-                 target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
+                 target="_blank" rel="noopener" aria-label="Share on LinkedIn">
                 <img src="assets/img/share-linkedin.png" alt="" width="40" height="40">
                 <span class="visually-hidden">Share on LinkedIn</span>
               </a>
             </li>
-            <!-- TODO: Instagram has no web share URL, so this points at the YBA
-                 profile instead. Add the handle, e.g. https://www.instagram.com/... -->
+            <!-- Instagram publishes no web share endpoint, so this one is driven
+                 by JS: the Web Share API where the browser has it (on a phone that
+                 opens the OS sheet, Instagram included), copy-to-clipboard
+                 otherwise. See assets/js/main.js. -->
             <li>
-              <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YBA on Instagram">
+              <a href="#" data-share-instagram aria-label="Share on Instagram">
                 <img src="assets/img/share-instagram.png" alt="" width="40" height="40">
-                <span class="visually-hidden">YBA on Instagram</span>
+                <span class="visually-hidden">Share on Instagram</span>
               </a>
             </li>
             <li>
               <a href="https://www.facebook.com/sharer/sharer.php" data-share="facebook"
-                 target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
+                 target="_blank" rel="noopener" aria-label="Share on Facebook">
                 <img src="assets/img/share-facebook.png" alt="" width="40" height="40">
                 <span class="visually-hidden">Share on Facebook</span>
               </a>
             </li>
             <li>
               <a href="https://twitter.com/intent/tweet" data-share="x"
-                 target="_blank" rel="noopener noreferrer" aria-label="Share on X">
+                 target="_blank" rel="noopener" aria-label="Share on X">
                 <img src="assets/img/share-x.png" alt="" width="40" height="40">
                 <span class="visually-hidden">Share on X</span>
               </a>
@@ -220,7 +232,7 @@
         </a>
         <p class="site-footer__legal">
           &copy; 2026 Young Business Analysts. Designed by
-          <a class="link-plain" href="https://www.deborahgarfen.co.uk">Deborah Garfen</a>
+          <a class="link-plain" href="https://www.deborahgarfen.co.uk" rel="noopener" target="_blank">Deborah Garfen</a>
         </p>
       </div>
 

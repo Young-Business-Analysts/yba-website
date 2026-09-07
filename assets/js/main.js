@@ -7,8 +7,9 @@
  *   1. the mobile navigation toggle,
  *   2. a replay of the header-rule animation when the page is restored from
  *      the browser's back/forward cache (bfcache), so the line always plays,
- *   3. the share row's network links, pointed at the current page URL,
- *   4. "copy link" on the blog article's share row.
+ *   3. the blog article's share row — the network links are pointed at the
+ *      page's canonical URL, and "copy link" and Instagram are handled here
+ *      because neither can be expressed as a plain href.
  *
  * The header-rule animation itself is pure CSS — see the "page header" section
  * of assets/css/components.css.
@@ -87,52 +88,100 @@
   });
 
   /* -----------------------------------------------------------------------
-     3. Share row — point each network at the current page
+     3. Share row
      -----------------------------------------------------------------------
-     The links ship with the bare intent URL so the markup carries no
-     hard-coded domain; here the page's own address is appended, which means
-     the same file works on localhost, the Netlify preview and the live site.
+     Every button shares the page's CANONICAL address, not window.location,
+     so a link shared from the Netlify preview or from a local server still
+     sends people to the live page.
+
+     LinkedIn, Facebook and X each publish a URL you can pass a link to, so
+     those three stay real anchors — they work on middle-click and "open in
+     new tab", and degrade to a plain link if this script never runs. Their
+     hrefs are filled in below.
+
+     Instagram publishes no such endpoint. The platform has no way to hand a
+     link to it from a web page at all, so that button uses the Web Share API
+     where the browser has one (on a phone that opens the OS share sheet with
+     Instagram in it) and falls back to copying the link, which is the only
+     other way it can reach a story or a bio.
      ----------------------------------------------------------------------- */
 
-  var shareLinks = document.querySelectorAll("[data-share]");
+  var shareRow = document.querySelector(".share-list");
 
-  if (shareLinks.length) {
-    var pageUrl = encodeURIComponent(window.location.href);
+  if (shareRow) {
+    var canonical = document.querySelector('link[rel="canonical"]');
+    var shareUrl = canonical ? canonical.href : window.location.href;
+
+    // The <title> carries the site name after an em dash; the networks only
+    // want the article's own title.
+    var shareTitle = document.title.split(" — ")[0];
+
+    var encodedUrl = encodeURIComponent(shareUrl);
+    var encodedTitle = encodeURIComponent(shareTitle);
 
     var intents = {
-      linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=" + pageUrl,
-      facebook: "https://www.facebook.com/sharer/sharer.php?u=" + pageUrl,
-      x: "https://twitter.com/intent/tweet?url=" + pageUrl
+      linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=" + encodedUrl,
+      facebook: "https://www.facebook.com/sharer/sharer.php?u=" + encodedUrl,
+      x: "https://x.com/intent/post?url=" + encodedUrl + "&text=" + encodedTitle
     };
 
-    shareLinks.forEach(function (link) {
+    shareRow.querySelectorAll("[data-share]").forEach(function (link) {
       var intent = intents[link.getAttribute("data-share")];
       if (intent) link.href = intent;
     });
-  }
 
-  /* -----------------------------------------------------------------------
-     4. Share row — copy the current page link
-     ----------------------------------------------------------------------- */
+    /* Swap a button's hidden label for two seconds, so the outcome is
+       announced to a screen reader and CSS can show a visual tick. */
+    var flash = function (button, message) {
+      var label = button.querySelector(".visually-hidden");
+      var original = label ? label.textContent : "";
 
-  var copyLink = document.querySelector("[data-copy-link]");
+      button.setAttribute("data-copied", "true");
+      if (label) label.textContent = message;
 
-  if (copyLink && navigator.clipboard) {
-    copyLink.addEventListener("click", function (event) {
-      event.preventDefault();
+      window.setTimeout(function () {
+        button.removeAttribute("data-copied");
+        if (label) label.textContent = original;
+      }, 2000);
+    };
 
-      navigator.clipboard.writeText(window.location.href).then(function () {
-        var label = copyLink.querySelector(".visually-hidden");
-        var original = label ? label.textContent : "";
+    var copyToClipboard = function (button, okMessage) {
+      if (!navigator.clipboard) {
+        flash(button, "Copying is not supported in this browser");
+        return;
+      }
+      navigator.clipboard.writeText(shareUrl).then(
+        function () { flash(button, okMessage); },
+        // Without this the button would fail silently — the clipboard is
+        // refused when the document is not focused, among other cases.
+        function () { flash(button, "Could not copy the link"); }
+      );
+    };
 
-        copyLink.setAttribute("data-copied", "true");
-        if (label) label.textContent = "Link copied";
+    var copyLink = shareRow.querySelector("[data-copy-link]");
 
-        window.setTimeout(function () {
-          copyLink.removeAttribute("data-copied");
-          if (label) label.textContent = original;
-        }, 2000);
+    if (copyLink) {
+      copyLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        copyToClipboard(copyLink, "Link copied");
       });
-    });
+    }
+
+    var instagram = shareRow.querySelector("[data-share-instagram]");
+
+    if (instagram) {
+      instagram.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        if (navigator.share) {
+          navigator.share({ title: shareTitle, url: shareUrl })
+            // A cancelled share sheet rejects; that is not an error.
+            .catch(function () {});
+          return;
+        }
+
+        copyToClipboard(instagram, "Link copied — paste it into Instagram");
+      });
+    }
   }
 })();
