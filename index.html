@@ -1,135 +1,81 @@
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html lang="en-GB">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Young Business Analysts — Young. Brave. Ambitious.</title>
+  <meta name="description" content="Networking and opportunities for the curious and the capable. YBA champions the next generation of business analysts.">
 
-  <meta charset="UTF-8">
+  <link rel="icon" href="assets/img/yba-logo.svg" type="image/svg+xml">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Montserrat stands in for the brand font, Gotham, and is served from this
+       site rather than a third party. See assets/fonts/README.md -->
+  <link rel="stylesheet" href="assets/css/fonts.css">
 
-  <title>Young Business Analysts | Launching Soon</title>
-
-  <style>
-
-    * {
-
-      box-sizing: border-box;
-
-    }
-
-body {
-
-  margin: 0;
-
-  min-height: 100vh;
-
-  font-family: Arial, sans-serif;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  text-align: center;
-
-  background: #ffffff;
-
-  color: #1a1a1a;
-
-  padding: 40px 20px;
-
-}
-
-
-
-.container {
-
-  max-width: 700px;
-
-}
-
-
-
-.logo {
-
-  max-width: 220px;
-
-  margin-bottom: 50px;
-
-}
-
-
-
-h1 {
-
-  font-size: 48px;
-
-  margin: 0 0 20px;
-
-  line-height: 1.1;
-
-}
-
-
-
-p {
-
-  font-size: 20px;
-
-  line-height: 1.6;
-
-  color: #555;
-
-  margin: 0;
-
-}
-
-
-
-@media (max-width: 600px) {
-
-  h1 {
-
-    font-size: 36px;
-
-  }
-
-
-
-  p {
-
-    font-size: 18px;
-
-  }
-
-}
-
-  </style>
-
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
 </head>
+<body class="is-home">
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<body>
+  <!-- ===== HERO =========================================================
+       The header sits inside the gradient band on this page only, so the
+       logo and navigation appear on top of the gradient.
+       ================================================================== -->
+  <div class="hero">
 
-  <div class="container">
+    <!-- SITE HEADER (shared — keep identical on every page) -->
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="site-logo" href="index.html" aria-label="Young Business Analysts — home">
+          <!-- Below the nav breakpoint the strapline is dropped, as designed.
+               CSS shows exactly one of these two. -->
+          <img class="site-logo__full" src="assets/img/yba-logo.svg" alt="" width="191" height="50">
+          <img class="site-logo__mark" src="assets/img/yba-logo-mark.svg" alt="" width="191" height="32">
+        </a>
 
-    <img src="Assets/img/yba-logo.svg" alt="Young Business Analysts" class="logo">
+        <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
+          <span class="nav-toggle__bar"></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
 
-<h1>We’re launching soon.</h1>
+        <nav class="site-nav" id="site-nav" data-nav aria-label="Main">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="about.html">About us</a></li>
+            <li><a class="site-nav__link" href="volunteer.html">Volunteer</a></li>
+            <li><a class="site-nav__link" href="partnerships.html">Partnerships</a></li>
+            <li><a class="site-nav__link" href="resources.html">Resources</a></li>
+            <li><a class="site-nav__link" href="blog.html">Blog: A to B</a></li>
+          </ul>
+          <a class="btn" href="join.html">Join for free</a>
+        </nav>
+      </div>
+    </header>
+    <!-- /SITE HEADER -->
 
+    <div class="container hero__inner">
+      <h1 class="page-title">
+        <span class="hero__line">Young</span>
+        <span class="hero__line">Brave</span>
+        <!-- The animated rule is attached to the last line only. -->
+        <span class="hero__line page-header__row">
+          Ambitious
+          <span class="header-rule" aria-hidden="true"></span>
+        </span>
+      </h1>
 
+      <p class="hero__text">
+        Networking and opportunities for the curious and the capable.<br>
+        We champion the next generation of business analysts.
+      </p>
 
-<p>
-
-  We’re currently putting the finishing touches to the new
-
-  Young Business Analysts website.
-
-  Check back soon.
-
-</p>
-
+      <p class="hero__actions">
+        <a class="btn" href="join.html">Join for free</a>
+      </p>
+    </div>
   </div>
 
   <main id="main">
@@ -298,5 +244,4 @@ p {
 
   <script src="assets/js/main.js"></script>
 </body>
-
 </html>
