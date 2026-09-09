@@ -161,15 +161,11 @@ body {
   overflow-wrap: break-word;
 }
 
-/* Every page except the homepage sets its display headings at the same
-   tracking as body copy. The homepage keeps the wide, logo-echoing spacing
-   as the brand statement. Only the letter-spacing changes here — size,
-   weight, family, case and colour are untouched. */
-body:not(.is-home) {
-  --ls-display: var(--ls-body);
-  --ls-heading: var(--ls-body);
-  --ls-label: var(--ls-body);
-}
+/* NOTE: inner pages used to zero these three tokens, which made every
+   heading off the homepage set solid while the homepage stayed tracked. The
+   designer's intent is that all display headings carry the tracking, so that
+   override is gone and every page now inherits the :root values (and the
+   reduced phone values in the breakpoints at the foot of this file). */
 
 /* Emphasized text — on mobile, use medium weight for visual emphasis */
 strong {

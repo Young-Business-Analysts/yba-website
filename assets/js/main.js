@@ -8,8 +8,8 @@
  *   2. a replay of the header-rule animation when the page is restored from
  *      the browser's back/forward cache (bfcache), so the line always plays,
  *   3. the blog article's share row — the network links are pointed at the
- *      page's canonical URL, and "copy link" and Instagram are handled here
- *      because neither can be expressed as a plain href.
+ *      page's canonical URL, and "copy link" is handled here because no href
+ *      can copy to a clipboard.
  *
  * The header-rule animation itself is pure CSS — see the "page header" section
  * of assets/css/components.css.
@@ -94,16 +94,12 @@
      so a link shared from the Netlify preview or from a local server still
      sends people to the live page.
 
-     LinkedIn, Facebook and X each publish a URL you can pass a link to, so
-     those three stay real anchors — they work on middle-click and "open in
-     new tab", and degrade to a plain link if this script never runs. Their
+     LinkedIn, Facebook, X and WhatsApp each publish a URL you can pass a link
+     to, so all four stay real anchors — they survive a middle-click or "open
+     in new tab", and degrade to a plain link if this script never runs. Their
      hrefs are filled in below.
 
-     Instagram publishes no such endpoint. The platform has no way to hand a
-     link to it from a web page at all, so that button uses the Web Share API
-     where the browser has one (on a phone that opens the OS share sheet with
-     Instagram in it) and falls back to copying the link, which is the only
-     other way it can reach a story or a bio.
+     Only "copy link" needs script, because no href can copy to a clipboard.
      ----------------------------------------------------------------------- */
 
   var shareRow = document.querySelector(".share-list");
@@ -122,7 +118,9 @@
     var intents = {
       linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=" + encodedUrl,
       facebook: "https://www.facebook.com/sharer/sharer.php?u=" + encodedUrl,
-      x: "https://x.com/intent/post?url=" + encodedUrl + "&text=" + encodedTitle
+      x: "https://x.com/intent/post?url=" + encodedUrl + "&text=" + encodedTitle,
+      // WhatsApp takes one text field, so the title and link go together.
+      whatsapp: "https://wa.me/?text=" + encodeURIComponent(shareTitle + " " + shareUrl)
     };
 
     shareRow.querySelectorAll("[data-share]").forEach(function (link) {
@@ -164,23 +162,6 @@
       copyLink.addEventListener("click", function (event) {
         event.preventDefault();
         copyToClipboard(copyLink, "Link copied");
-      });
-    }
-
-    var instagram = shareRow.querySelector("[data-share-instagram]");
-
-    if (instagram) {
-      instagram.addEventListener("click", function (event) {
-        event.preventDefault();
-
-        if (navigator.share) {
-          navigator.share({ title: shareTitle, url: shareUrl })
-            // A cancelled share sheet rejects; that is not an error.
-            .catch(function () {});
-          return;
-        }
-
-        copyToClipboard(instagram, "Link copied — paste it into Instagram");
       });
     }
   }

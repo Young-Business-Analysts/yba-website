@@ -76,28 +76,17 @@
 
         <p class="lead article__standfirst">Picture this. You’re a Business Analyst. You’ve developed some great experience and skills but then think what’s next? The Business Analyst career path is diverse and adaptable. But it can be hard to map out where you can actually go.</p>
 
-        <details class="author-note">
-          <summary class="author-note__summary">
-            <div class="article__author-photo">
-              <!-- TODO: no headshot on file for this author -->
-              <img src="assets/img/placeholder.png" alt="" width="80" height="80">
-            </div>
-            <div>
-              <p class="author-note__label">About the author</p>
-              <p class="article__author-name">Soni Kaur</p>
-              <p class="article__author-role">Product Manager &amp; Product Owner (CSPO, POPM)</p>
-            </div>
-            <span class="author-note__chevron" aria-hidden="true"></span>
-          </summary>
-
-          <div class="author-note__body">
-            <p>Hey! I’m Soni, a Product Owner who is deeply passionate about building digital products that actually make life better.</p>
-            <p>I’ve worn many hats from Business Analyst and Consultant to Digital Marketer and today, I lead a global Agile team to make innovative digital products.</p>
-            <p>While I spend my days obsessing over product roadmaps, backlog management, and data, my real "why" is people. I’ve navigated the "chaotic world" of tech career pivots myself, and now I’m on a mission to help others level up their career development and productivity.</p>
-            <p>Whether it’s through my work or my real-life insights on LinkedIn, I believe in purpose, impact, and sharing the "real-life" side of the job to champion youth empowerment and support more women in tech to claim their space in the industry.</p>
-            <p>I regularly post content around career, personal development, productivity, tech, and product on my LinkedIn. <a href="https://www.linkedin.com/in/sonikaur/" target="_blank" rel="noopener">Pop me a follow,</a> and let's stay connected on your journey!</p>
+        <a class="article__author" href="https://www.linkedin.com/in/sonikaur/" target="_blank" rel="noopener"
+           aria-label="Soni Kaur on LinkedIn">
+          <div class="article__author-photo">
+            <!-- TODO: no headshot on file for this author -->
+            <img src="assets/img/placeholder.png" alt="" width="80" height="80">
           </div>
-        </details>
+          <div>
+            <p class="article__author-name">Soni Kaur</p>
+            <p class="article__author-role">Product Manager &amp; Product Owner (CSPO, POPM)</p>
+          </div>
+        </a>
 
 
         <div class="rich-text">
@@ -173,14 +162,11 @@
                 <span class="visually-hidden">Share on LinkedIn</span>
               </a>
             </li>
-            <!-- Instagram publishes no web share endpoint, so this one is driven
-                 by JS: the Web Share API where the browser has it (on a phone that
-                 opens the OS sheet, Instagram included), copy-to-clipboard
-                 otherwise. See assets/js/main.js. -->
             <li>
-              <a href="#" data-share-instagram aria-label="Share on Instagram">
-                <img src="assets/img/share-instagram.png" alt="" width="40" height="40">
-                <span class="visually-hidden">Share on Instagram</span>
+              <a href="https://wa.me/" data-share="whatsapp"
+                 target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+                <img src="assets/img/share-whatsapp.png" alt="" width="40" height="40">
+                <span class="visually-hidden">Share on WhatsApp</span>
               </a>
             </li>
             <li>
