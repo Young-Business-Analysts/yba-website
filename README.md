@@ -141,16 +141,16 @@ These are marked with `<!-- TODO -->` comments in the HTML:
 | `volunteer.html` | The Ambassador application form URL |
 | `partnerships.html` | Partnership enquiries address, and each partner's website (5) |
 | Resource sub-pages | Destination URLs for each entry, 17 in all (labels are final) |
-| Every blog post | The publication date — `datetime` attribute and visible text |
-| Every blog post | Instagram share target; the platform has no web share URL, so these point at the YBA profile, which is not yet set |
 | 3 blog posts | Artwork for 7 figures, left as commented-out `<figure>` blocks |
-| `blog-ba-skills-to-product.html` | A headshot for Soni Kaur (using `placeholder.png`) |
+| `blog-ba-skills-to-product.html` | **Unpublished** — pulled from the live site for want of an author photograph. The file is intact and carries `robots: noindex`; nothing links to it. Supply a headshot for Soni Kaur, then add a card back to `blog.html` and `index.html` and drop the robots tag. |
 
 Resolved: the footer **Contact us** address and the Deborah Garfen design
-credit are now live on every page, and `privacy.html` carries the real contact
-address in both section 1 and section 11.
+credit are live on every page; `privacy.html` carries the real contact address
+in both section 1 and section 11; every post is dated 09.09.2026; and the share
+row's Instagram button was replaced by WhatsApp, which — unlike Instagram —
+publishes a share URL that works on desktop as well as mobile.
 
-The blog now runs nine real posts built from the source documents in
+The blog runs eight live posts (nine were built) from the source documents in
 `../blog files/`. `blog-post.html` is the original dummy article; nothing links
 to it any more, and it is kept only as a template for writing the next post.
 
@@ -158,15 +158,13 @@ to it any more, and it is kept only as a template for writing the next post.
 
 ## Fonts
 
-The brand typeface is **Gotham** (Hoefler&Co), which is commercially licensed
-and cannot be redistributed. The site ships with **Montserrat** as the
-stand-in — it is the closest widely available match for Gotham's geometric
-letterforms, and its metrics were measured against the designs so that
-headings and body copy land within about 1% of the Figma widths.
+The brand typeface is **Gotham** (Hoefler&Co), and the licensed web fonts are
+now installed — Book (400), Medium (600), Black (900) and Ultra (950), served
+from `assets/fonts/` via `assets/css/fonts.css`. Montserrat remains second in
+the font stack as a fallback only.
 
-If YBA holds a Gotham web licence, see `assets/fonts/README.md`. Adding it is
-a single `@font-face` block; the font stacks in `tokens.css` already list
-Gotham first, so every page picks it up with no other change.
+Note that the tracking values in `tokens.css` were originally fitted to
+Montserrat, which is the wider face. See `assets/fonts/README.md`.
 
 ---
 
