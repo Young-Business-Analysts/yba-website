@@ -435,9 +435,13 @@ a.article__author:focus-visible {
   height: auto;
 }
 
+/* Captions drop to the small size and step up to medium weight so they read
+   as a label adding context to the image rather than as another line of
+   body copy. */
 .article__figure figcaption {
   margin-top: 9px;
-  font-size: var(--fs-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
 }
 
 /* --------------------------------------------------------------------------
@@ -474,6 +478,9 @@ a.article__author:focus-visible {
 .article__quote-by {
   margin-top: 12px;
   font-size: var(--fs-body);
+  /* Medium, not a heavier cut: it is the weight the nav, buttons and links
+     use, and the only step above Book the body scale has. */
+  font-weight: var(--fw-medium);
 }
 
 /* A figure inside .rich-text is a child of that block, not of .article, so it
