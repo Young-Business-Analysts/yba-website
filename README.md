@@ -146,13 +146,17 @@ These are marked with `<!-- TODO -->` comments in the HTML:
 
 Resolved: the footer **Contact us** address and the Deborah Garfen design
 credit are live on every page; `privacy.html` carries the real contact address
-in both section 1 and section 11; every post is dated 09.09.2026; and the share
+in both section 1 and section 11; the posts are dated (09.09.2026, bar the rebrand announcement at 20.09.2026); and the share
 row's Instagram button was replaced by WhatsApp, which — unlike Instagram —
 publishes a share URL that works on desktop as well as mobile.
 
-The blog runs eight live posts (nine were built) from the source documents in
-`../blog files/`. `blog-post.html` is the original dummy article; nothing links
-to it any more, and it is kept only as a template for writing the next post.
+The blog runs nine live posts (ten were built) — the source documents are in
+`../blog files/`, apart from the rebrand announcement, which came from
+`~/Downloads/YBA Rebrand blog.docx` and is the only post with its own artwork
+(`assets/img/blog-rebrand-*.jpg`, extracted byte-for-byte from that file).
+
+`blog-post.html` is the original dummy article; nothing links to it any more,
+and it is kept only as a template for writing the next post.
 
 ---
 

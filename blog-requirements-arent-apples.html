@@ -21,8 +21,21 @@
 
   <link rel="icon" href="assets/img/yba-logo.svg" type="image/svg+xml">
 
-  <!-- Montserrat stands in for the brand font, Gotham, and is served from this
-       site rather than a third party. See assets/fonts/README.md -->
+  <!-- Gotham is self-hosted, with Montserrat behind it as a standby. Text is
+       held back until one of them resolves — see assets/css/fonts.css. These
+       three weights are preloaded so they are in flight while the stylesheets
+       parse, which keeps that wait short. -->
+  <!-- Adds the flag that keeps text transparent until Gotham or Montserrat
+       has actually loaded (assets/js/main.js clears it). Inline and in <head>
+       so it applies before the first paint, and set from script rather than
+       markup so a visitor with JavaScript off is never left with a wordless
+       page — they simply get the normal render. -->
+  <script>document.documentElement.className += " fonts-pending";</script>
+
+  <link rel="preload" href="assets/fonts/gotham-book-webfont.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/gotham-medium-webfont.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/gotham-ultra-webfont.woff2" as="font" type="font/woff2" crossorigin>
+
   <link rel="stylesheet" href="assets/css/fonts.css">
 
   <link rel="stylesheet" href="assets/css/tokens.css">
@@ -166,6 +179,11 @@
       <h2 class="card-title read-more__title">Read more</h2>
       <ul class="grid-4">
         <li class="post-card">
+          <h3 class="post-card__title">Built for the Bold: Rebranding YBA</h3>
+          <p class="post-card__text">Meet the new face of Young Business Analysts. We have reimagined our brand to champion the curious and the capable&hellip;</p>
+          <a class="link post-card__more" href="blog-rebranding-yba.html">Read article</a>
+        </li>
+        <li class="post-card">
           <h3 class="post-card__title">5 Essential Tips for Young Business Analyst Professionals to Excel in their Career</h3>
           <p class="post-card__text">Are you a young professional starting your journey as a business analyst? Do you aspire to thrive and advance in your career in the field of business&hellip;</p>
           <a class="link post-card__more" href="blog-five-essential-tips.html">Read article</a>
@@ -179,11 +197,6 @@
           <h3 class="post-card__title">Business Analyst of the Year 2024: Kay Hardy</h3>
           <p class="post-card__text">We're proud to announce that one of our founders, Kay Hardy, was crowned Business Analyst of the Year 2024 by AssistKD at the IRM BA Conference.</p>
           <a class="link post-card__more" href="blog-ba-of-the-year-2024.html">Read article</a>
-        </li>
-        <li class="post-card">
-          <h3 class="post-card__title">Young BA Corner: Lauren Howes at the IRM BA Conference</h3>
-          <p class="post-card__text">Session Title: Growing Your Own BA's: Everything You Need to Know</p>
-          <a class="link post-card__more" href="blog-lauren-howes-irm-2024.html">Read article</a>
         </li>
       </ul>
     </section>

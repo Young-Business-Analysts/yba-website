@@ -1,40 +1,4 @@
 /* ==========================================================================
-   GOTHAM WEB FONTS
-   ========================================================================== */
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../fonts/gotham-book-webfont.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../fonts/gotham-medium-webfont.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../fonts/gotham-black-webfont.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../fonts/gotham-ultra-webfont.woff2") format("woff2");
-  font-weight: 950;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ==========================================================================
    BASE — reset, typography and layout primitives
    ==========================================================================
    Loaded after tokens.css. Sets up sensible defaults and the handful of
@@ -137,6 +101,30 @@ body {
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Text held back until a brand face resolves
+   --------------------------------------------------------------------------
+   The brief is that no text ever paints in Helvetica or Arial — if neither
+   Gotham nor Montserrat arrives, the page shows its layout, images and bands
+   with no words in them rather than substituting a system face.
+
+   CSS cannot express that on its own: `font-display: block` gives up after
+   about three seconds, and a font stack always terminates in something. So
+   the glyphs are made transparent here and revealed by assets/js/main.js once
+   a real face has actually loaded.
+
+   `color` rather than `visibility` so the text still occupies its exact
+   layout box — nothing moves when it appears.
+
+   The `fonts-pending` class is added by an inline script in <head>, never in
+   the markup. With JavaScript off it is therefore never applied and the page
+   renders normally, instead of being permanently wordless.
+   -------------------------------------------------------------------------- */
+
+.fonts-pending body * {
+  color: transparent !important;
 }
 
 /* --------------------------------------------------------------------------

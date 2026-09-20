@@ -1,19 +1,36 @@
 /* ==========================================================================
-   FONTS — Gotham, self-hosted
+   FONTS — Gotham, with Montserrat behind it
    ==========================================================================
-   The brand typeface, self-hosted to avoid sending visitor data to a third
-   party. Three weights (Book 400, Medium 600, Black 900) cover all uses:
-   body copy, navigation/buttons/labels, and display headings.
+   Both families are declared `font-display: block`, which means text is not
+   painted at all until a face resolves. That is deliberate: the two faces
+   have different metrics, so letting the page paint in one and then swap to
+   the other reflowed the homepage by ~99px mid-load. Holding the glyphs back
+   trades that jump for a short textless moment.
 
-   To revert to Montserrat or change typeface, see assets/fonts/README.md.
+   The order the browser works through:
+
+     1. Gotham        — the brand face, ~18 KB a weight. Preloaded in the
+                        <head> of every page so it is already in flight while
+                        the stylesheets parse.
+     2. Montserrat    — only fetched if Gotham fails. Split latin /
+                        latin-ext so a page of English pulls ~35 KB, not 101.
+     3. Helvetica/Arial — if neither arrives, the browser's block period
+                        (~3s) lapses and the local face paints.
+
+   Weights: Book 400, Medium 600, Black 900, Ultra 950. Montserrat stops at
+   900, so a 950 heading falls back to its heaviest cut.
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Gotham — the brand face
+   -------------------------------------------------------------------------- */
 
 @font-face {
   font-family: "Gotham";
   src: url("../fonts/gotham-book-webfont.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -21,7 +38,7 @@
   src: url("../fonts/gotham-medium-webfont.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -29,7 +46,7 @@
   src: url("../fonts/gotham-black-webfont.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -37,5 +54,66 @@
   src: url("../fonts/gotham-ultra-webfont.woff2") format("woff2");
   font-weight: 950;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Montserrat — the standby, fetched only if Gotham does not arrive
+   --------------------------------------------------------------------------
+   unicode-range keeps the 67 KB latin-ext cut out of the way unless a page
+   actually uses a character from it.
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-400-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-400-latin-ext.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-600-latin.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-600-latin-ext.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-900-latin.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-900-latin-ext.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }

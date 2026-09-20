@@ -440,6 +440,44 @@ a.article__author:focus-visible {
   font-size: var(--fs-body);
 }
 
+/* --------------------------------------------------------------------------
+   Pull quotes inside an article
+   --------------------------------------------------------------------------
+   No quotation-mark graphic and no italic — this brand states things rather
+   than decorating them. A 2px rule at the same weight as the link underlines
+   marks the quote, the words sit at lead size, and the attribution drops back
+   to body size.
+   -------------------------------------------------------------------------- */
+
+.article__quote {
+  margin: 0;
+  padding-left: 22px;
+  border-left: var(--underline-weight) solid var(--c-black);
+}
+
+.article__quote p {
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+}
+
+.article__quote-by {
+  margin-top: 12px;
+  font-size: var(--fs-body);
+}
+
+/* A figure inside .rich-text is a child of that block, not of .article, so it
+   needs its own rhythm — and it runs the full width of the text column rather
+   than being capped like a paragraph. */
+.rich-text > .article__figure {
+  margin-top: 34px;
+  max-width: none;
+}
+
+.rich-text > .article__figure + * {
+  margin-top: 34px;
+}
+
 .article__actions {
   margin-top: 34px;
 }

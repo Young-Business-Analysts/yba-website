@@ -4,6 +4,11 @@
  * Everything here is progressive enhancement: the site is fully readable and
  * navigable with JavaScript switched off. This file only adds
  *
+ *   0. revealing the text once Gotham or Montserrat has loaded — the page
+ *      deliberately shows no words until one of them does. This does not
+ *      break the no-JavaScript case: the flag that hides the text is itself
+ *      set by script, so with JavaScript off it is never set and the page
+ *      renders normally in whatever face is available.
  *   1. the mobile navigation toggle,
  *   2. a replay of the header-rule animation when the page is restored from
  *      the browser's back/forward cache (bfcache), so the line always plays,
@@ -17,6 +22,54 @@
 
 (function () {
   "use strict";
+
+  /* -----------------------------------------------------------------------
+     0. Reveal the text once a brand face has loaded
+     -----------------------------------------------------------------------
+     An inline script in <head> sets `fonts-pending` on <html>, which holds
+     every glyph transparent (see the matching rule in base.css). This clears
+     it, but only after confirming a face genuinely loaded.
+
+     document.fonts.ready is deliberately NOT used: it resolves once font
+     loading has *settled*, success or failure alike, so a failed download
+     would still reveal the page — in Arial, which is the thing being avoided.
+     document.fonts.load() resolves with the faces it matched, so an empty
+     result means the face is not there.
+
+     Gotham is tried first, Montserrat second. If neither arrives the class is
+     never removed and the page stays wordless, by design.
+     ----------------------------------------------------------------------- */
+
+  var docEl = document.documentElement;
+
+  if (docEl.className.indexOf("fonts-pending") !== -1) {
+    var reveal = function () {
+      docEl.className = docEl.className.replace(/\bfonts-pending\b/, "").trim();
+    };
+
+    // No Font Loading API (very old browsers): reveal rather than strand them.
+    if (!document.fonts || !document.fonts.load) {
+      reveal();
+    } else {
+      // 950 is asked for last; Montserrat stops at 900 and the font matching
+      // algorithm resolves it to that, which still counts as present.
+      var resolves = function (family) {
+        return Promise.all([
+          document.fonts.load('400 1rem "' + family + '"'),
+          document.fonts.load('600 1rem "' + family + '"'),
+          document.fonts.load('950 1rem "' + family + '"')
+        ]).then(function (matched) {
+          return matched.every(function (faces) { return faces.length > 0; });
+        }).catch(function () {
+          return false;
+        });
+      };
+
+      resolves("Gotham")
+        .then(function (ok) { return ok || resolves("Montserrat"); })
+        .then(function (ok) { if (ok) reveal(); });
+    }
+  }
 
   /* -----------------------------------------------------------------------
      1. Mobile navigation
