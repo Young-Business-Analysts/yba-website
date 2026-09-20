@@ -473,14 +473,13 @@ a.article__author:focus-visible {
   margin: 0;
   font-size: var(--fs-lead);
   line-height: var(--lh-lead);
+  /* The quote carries the emphasis; the attribution below stays Book. */
+  font-weight: var(--fw-medium);
 }
 
 .article__quote-by {
   margin-top: 12px;
   font-size: var(--fs-body);
-  /* Medium, not a heavier cut: it is the weight the nav, buttons and links
-     use, and the only step above Book the body scale has. */
-  font-weight: var(--fw-medium);
 }
 
 /* A figure inside .rich-text is a child of that block, not of .article, so it
