@@ -450,9 +450,19 @@ a.article__author:focus-visible {
    -------------------------------------------------------------------------- */
 
 .article__quote {
+  /* Drops the browser's default 40px blockquote indent — the rule and the
+     padding below do that job instead. */
   margin: 0;
   padding-left: 22px;
   border-left: var(--underline-weight) solid var(--c-black);
+}
+
+/* That margin reset also cancels .rich-text's paragraph rhythm, which is why
+   the spacing is restated here. Quotes carry more weight than a paragraph and
+   two of them in a row must not touch, so they get the same 34px the figures
+   use rather than the 22px between paragraphs. */
+.rich-text > .article__quote {
+  margin-top: 34px;
 }
 
 .article__quote p {
